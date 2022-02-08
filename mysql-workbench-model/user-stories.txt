@@ -1,0 +1,7 @@
+--- User Stories for this system ---
+- as a teacher I want to add/modify/remove the grades for the students on the activities on my asignatures
+- as a teacher I want to add/modify/remove activities for my asignatures
+- as a student I want to sign up/quit/check my asignatures
+- as a student I want to check the activities for my asignatures
+- as a student I want to check my grades on the activities on my asignatures
+- as a visitor I want to check the available careers and their asignatures
