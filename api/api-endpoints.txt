@@ -1,0 +1,46 @@
+*** The API will have the following endpoints ***
+
+- asignaturas
+- asignaturas/:id
+
+- asignaturas/:id/actividades
+- asignaturas/:id/actividades/:id
+
+- usuarios
+- usuarios/:id
+
+- usuarios/:id/asignaturas
+- usuarios/:id/asignaturas/:id
+
+- carreras
+- carreras/:id
+
+*** The API will have the following roles: ***
+
+- admin
+- profesor
+- alumno
+- visitante
+
+*** Functionality of each endpoint for each role ***
+
+- asignaturas
+  admin: CRUD
+  profesor: RU (only data related to the user)
+  alumno: R (only data related to the user)
+
+- asignaturas/actividades
+  admin: CRUD 
+  profesor: CRUD (only data related to the user)
+  alumno: R (only data related to the user)
+
+- usuarios
+  admin: CRUD
+  profesor, alumno: RU (only data related to the user)
+
+- usuarios/asignaturas
+  This endpoint is used to subscribe/unsubscribe users from asignatures
+
+- carreras
+  admin: CRUD
+  profesor, alumno, invitado: R
