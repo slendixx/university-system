@@ -1,15 +1,15 @@
-use university;
--- asignaturas dictadas por cada profesor
-SELECT CONCAT(usuario.nombre," ",usuario.apellido ) AS "Profesor",
-asignatura.nombre as "asignatura" from profesor_asignatura
-inner join asignatura
-on profesor_asignatura.id_asignatura = asignatura.id
-inner join usuario
-on profesor_asignatura.id_profesor = usuario.id
-where usuario.tipo_usuario = 11;
 
--- todos los profesores
-/*
-SELECT nombre, apellido FROM usuario
-WHERE tipo_usuario = 11;
-*/
+-- Ver todas las asignaturas de todas las carreras
+select carrera.nombre as "carrera",
+asignatura.nombre as "asignatura",
+carrera_asignatura.nivel as "año",
+tipo_distribucion_anual.tipo_distribucion_anual as "distribucion"
+from carrera_asignatura
+inner join carrera
+on id_carrera = carrera.id
+inner join asignatura 
+on id_asignatura = asignatura.id
+inner join tipo_distribucion_anual
+on id_distribucion_anual = tipo_distribucion_anual.id
+where carrera.nombre like "licenciatura en administracion de empresas"
+order by año asc;

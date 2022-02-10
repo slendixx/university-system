@@ -1,0 +1,307 @@
+Formación Humanística I
+Matemática I
+Contabilidad Básica
+Derecho Público
+Hist. y principios de economía
+Matemática II
+Contabilidad Superior
+Derecho Privado I
+Microeconomía
+Formación Humanística II
+Derecho Privado II
+Estadística
+Administración II
+Macroeconomía
+Costos I
+Administración II
+Administración y Cont. Publica
+Matemática Financiera
+Formación Humanística III
+Costos II
+Estados Contables
+Aplic. Adm. Cont. y Empresarial
+Metodología de la Invest.
+Soc. Com. Coop. y Seguro
+Aplic. de Sist. Informáticos
+Impositiva I
+Derecho del Trab. y la Seg. Soc.
+Seminario de Graduación
+Práctica Profesional
+Formación Humanística
+Finanzas
+Auditoria I
+Impositiva II
+Auditoria II
+Derercho Concursal y Práctica Judicial
+Matemática I
+Contabilidad Básica
+Derecho Privado
+Formación Humanística I
+Matemática II
+Contabilidad Superior
+Derecho Público
+Principios de Economía
+Costos I
+Administración I
+Derecho del Trabajo y Seguridad Social
+Matemática Financiera
+Formación Humanística II
+Microeconomía
+Administración II
+Costos II
+Derecho Comercial
+Estadística I
+Finanzas I
+Sociedades Comerciales, Coop. y Seguros
+Toma de Decisiones
+Formación Humanística III
+Macroeconomía
+Estadística II
+Finanzas II
+Administración de Recursos Humanos
+Administración de la Producción
+Comercialización I
+Sistemas Admin. y de Información
+Análisis de Estados Contables
+Dirección Estratégica
+Comercialización 2
+Práctica Profesional
+Formación Humanística IV
+Formulación y Evaluación de Proyectos
+Optativa
+Seminario de Graduación
+Form. Humanistica I
+Derecho Privado Parte General
+Teoría del Derecho y Justicia
+Hist. Inst. y el Pensamiento Político
+Derecho Romano
+Teorías Sociológicas y Sociología Jurídicas
+Form. Humanistica II
+Derecho Penal I
+Derecho de las Obligaciones
+Derecho Const. Público Provincial y Municipal
+Teoría Económicas y Economía Política
+Teoría del Estado y Derecho Politítico
+Informática Jurídica Aplicada
+Lectocomprensión Textos Jur. en Inglés
+Form. Humanistica III
+Derecho Penal II
+Contratos Civiles y Comerciales.
+Derecho Procesal General y Penal
+Derecho Procesal General y Comercial
+Derecho de la Empresa Bancario y del Seguro
+Derecho Internacional Público
+Derecho de los Recursos Naturales y Protección del Medio Ambiente
+Form.Humanistica IV
+Derechos Reales
+Derecho Laboral y de la Seguridad Social
+Derecho de Familia y Sucesorio
+Derecho Administrativo
+Derecho Societario y Cambiario
+Derecho Canónico y Eclesiástico
+Seminario Humanístico
+Práctica Profesional I
+Derecho Internacional Privado
+Concursos y Quiebras
+Derecho Consumidor y del Usuario
+Finanzas Públicas y Derecho Tributario
+Práctica Profesional II
+Seminario Humanístico II
+Derecho Electoral y de los Partidos Políticos
+Finanzas Públicas
+Derecho de la Integración y Comunitario
+Hist. de las Instit.
+Elem. Teo. Pol. del Est.
+Teo. Derecho y Justi.
+Sociología Política
+His. Mod. y Cont. Occid.
+Teo. Econ.y Econ. Pol.
+Form. Humanística I
+Fil. Pol.I: Antig. Mod.
+Economía I: Microecon.
+Pol.Arg.S. XIX y XX
+Int. Relac. Internac.
+Sistemas Polit. Comp.
+Argumentación
+Estadística
+Form. Humanística II
+Fil. Pol.II: Contemp.
+Economía II:Macroec.
+Der. Const. y Pub. Prov.
+Form.y Evaluac. Proy.
+Derecho Intern. Publ.
+Política y Comunic.
+Idio. Mod.I: Inglés
+Form. Humanística III
+Gob. Y Adm. Pub. N.P.M.
+Pol. Ext. Arg. Proc. Int.
+Derecho Parlament.
+Finanzas Públicas
+Der. Elect. Part. Pol.
+Toma Desc. y Gest. Gub.
+Idio. Mod.II: Por-Fra.
+Form. Humanística IV
+Introducción a la medicina
+Aparato cardiovascular
+Aparato respiratorio
+Aparato digestivo
+Aparato locomotor y piel
+Sangre, sistema linfático e inmunología
+Aparato urinario y medio interno
+Reproducción y genética
+Sistema endocrino, metabolismo y nutrición
+Sistema nervioso y órganos de los sentidos
+Optativas I y II
+Embarazo, familia y cuidados del recién nacido
+Salud del niño y del adolescente
+Salud del adulto I
+Salud del adulto II
+Salud del adulto III
+Salud del adulto mayor
+Salud mental
+Optativa III
+Práctica final obligatoria (PFO)
+Medicina familiar, general y comunitaria
+Emergentología
+Gestión en salud
+Fundamentos de la Nutrición
+Intro. a la Química
+Fisiología
+Anatomía
+Bioestadística
+Educación Nutricional
+Formación Humanística I
+Optativa I
+Nutrición Infantil
+Química Biológica
+Bromatología y Técnicas Alimentarias
+Microbiología y Parasitología
+Técnicas Dietéticas
+Formación Humanística II
+Economía Alimentaria
+Optativa II
+Política y Legistación Alimentaria
+Evaluación Nutricional
+Elaboración y Manejo de Alimentos
+Epidemiología en Nutrición
+Fisiopatología Nutricional del Adulto
+Planificación en Salud
+Saneamiento Ambiental
+Formación Humanística III
+Optativa III
+Admin. de Servicios de Alimentación
+Fisiopatología Nutricional del Niño
+Dietoterapia Niño-Adulto
+Salud Pública
+Psicología en Nutrición
+Metodología de la Investigación Cientifica
+Formación Humanística IV
+Tesis de Licenciatura
+Optativa IV
+Formación Humanística I
+Matemática I
+Física I
+Álgebra I
+Introducción a la Informática
+Sistemas de Representación
+Idioma Extranjero I
+Álgebra II
+Programación I
+A Formación Humanística II
+Matemática II
+Física II
+Programación II
+Álgebra Discreta
+Idioma Extranjero II
+Estructura De Datos I
+Química General
+Electrónica Básica
+Estructuras De Datos II
+A Formación Humanística III
+Arquitectura de Computadores I
+Métodos Numéricos
+Bases de Datos
+Informática Teórica
+Teoría de Sistemas y Modelos
+Probabilidad y Estadística
+Investigación Operativa
+Programación III
+Comunicación de Datos
+Formación Humanística IV
+Arquitectura de Computadores II
+Sistemas De Información I
+Ingeniería De Software I
+Teleinformática I
+Economía
+Inteligencia Artificial
+Sistemas Operativos
+Compiladores y Trasladores
+Teleinformática II
+Eval. y Form. De Proyectos
+Org. Empresarial e Industrial
+Trabajo de Campo
+Seminario Humanístico I
+Gestión Ambiental
+Eval. Y Selec. de Eq. de Hardware
+Sistemas de Información II
+Ingeniería de Software II
+Auditoria de Sistemas Legislación
+Seguridad de Sistemas
+Seminario Humanístico II
+Seminario de Informática I
+Seminario de Informática II
+Gestión de RR.HH.
+Proyecto Final Integrador
+Algoritmos y Paradigmas
+Álgebra I
+Inglés A1
+Formación Humanística I
+Desarrollo de Software
+Gestión de RR.HH.
+Base de datos
+Álgebra II
+Seminario Informático I
+Inglés A2
+Formación Humanística II
+Fundamentos de Control de Calidad
+Seminario Informático II
+Desarrollo Front End
+Control de Calidad Avanzado
+Seminario Informático II
+Desarrollo Back End
+Desarrollo de Aplicaciones Web
+Testeo Automatizado
+Inglés B1:1
+Proyecto Final
+Metodología de la Investigación I – Elaboración de proyecto
+Problema del conocimiento Histórico
+Inglés (A1)
+Historia Argentina I
+Nociones de Archivística aplicada a la Investigación
+Espacio Humanístico I (Antropología y Ética)
+Seminario Historia de la Mujer en América Latina
+Seminario Panorama del Pensamiento Argentino y Latinoamericano
+Metodología de la Investigación II – Taller de Redacción de Tesis
+Historia de la Cultura Contemporánea
+Historia Argentina II
+Historia del catolicismo en América latina (S. XVI-XX)
+Historia del Arte Argentino
+Historia Contemporánea (fines del XIX – XX)
+Espacio Humanístico II (Doctrina Social de la Iglesia)
+Seminario Relación Iglesia y Estado
+Seminarios Historia del pensamiento económico
+Redacción de Tesis
+Pedagogía
+Espacio Humanístico I
+Didáctica General
+Práctica I: Aproximación a losContextos Educativos
+Instituciones Educativas
+Didáctica Especial
+Psicología Educacional
+Práctica II: Observación y Micro – Experiencia de Enseñanza
+Historia Política y Educacional
+Práctica III: Residencia Docente
+Espacio Humanístico II
+Pedagogía Especial
+Taller de Resolución de Conflictos
+Tecnologías Aplicadas a la Enseñanza
