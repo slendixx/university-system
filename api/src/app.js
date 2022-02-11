@@ -19,3 +19,7 @@ app.use((req, res, next) => {
 //set up global error handler
 
 module.exports = app;
+
+let globalVariable = require('../server');
+
+globalVariable = 321;
