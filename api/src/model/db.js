@@ -3,12 +3,12 @@ const errorController = require('../errors/errorController');
 
 let connection;
 
-module.exports.setup = () => {
+module.exports.setup = ({ username = 'root', password = '' }) => {
     connection = mysql.createConnection({
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
-        user: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
+        user: username,
+        password: password,
         database: process.env.DB_DBNAME,
         insecureAuth: process.env.DB_INSECURE_AUTH,
     });
