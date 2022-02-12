@@ -1,9 +1,10 @@
 const mysql = require('mysql');
+const { create } = require('../auth/apikeys');
 const errorController = require('../errors/errorController');
 
-let connection;
+var connection;
 
-module.exports.setup = ({ username = 'root', password = '' }) => {
+const createConnection = function (username = 'root', password = '') {
     connection = mysql.createConnection({
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
@@ -14,14 +15,7 @@ module.exports.setup = ({ username = 'root', password = '' }) => {
     });
 };
 
-module.exports.connect = () => {
-    connection.connect(function (err) {
-        if (err) {
-            errorController.handleDBConnectionError(err);
-        }
-
-        console.log('connected to db as id ' + connection.threadId);
-    });
+module.exports.getConnection = function () {
+    if (!connection) connection = createConnection();
+    return connection;
 };
-
-module.exports.connection = connection;
