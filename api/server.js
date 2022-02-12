@@ -2,7 +2,7 @@
 const readFyleSync = require('fs').readFileSync;
 const dotenv = require('dotenv');
 const errorController = require('./src/errors/errorController');
-const db = require('./src/model/db');
+const db = require('./src/model/dbConnection');
 const app = require('./src/app');
 
 //start listening for synchronous exceptions
@@ -17,10 +17,6 @@ const [username, password] = readFyleSync('./credentials.txt', 'utf-8')
     .map((line) => {
         return line.trim();
     });
-
-//attempt connection with db
-db.setup({ username, password });
-db.connect();
 
 //start listening for requests
 const port = Number(process.env.SV_PORT) || 3000;
