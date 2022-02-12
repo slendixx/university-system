@@ -1,9 +1,9 @@
 //require db, env variables & app modules
-const readFyleSync = require('fs').readFileSync;
 const dotenv = require('dotenv');
 const errorController = require('./src/errors/errorController');
 const db = require('./src/model/db');
 const app = require('./src/app');
+const parseCredentials = require('./src/utils/parseCredentials');
 
 //start listening for synchronous exceptions
 process.on('uncaughtException', errorController.handleUncaughtException);
@@ -12,12 +12,7 @@ process.on('uncaughtException', errorController.handleUncaughtException);
 dotenv.config({ path: './config.env' });
 
 //read db connection credentials from safe file
-const [username, password] = readFyleSync('./credentials.txt', 'utf-8')
-    .split('\n')
-    .map((line) => {
-        return line.trim();
-    });
-
+const [username, password] = parseCredentials();
 //attempt connection with db
 db.setup({ username, password });
 db.connect();
