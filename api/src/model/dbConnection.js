@@ -1,11 +1,15 @@
 const mysql = require('mysql');
 const { create } = require('../auth/apikeys');
 const errorController = require('../errors/errorController');
+const parseCredentials = require('../utils/parseCredentials');
 
 var connection;
 
-const createConnection = function (username = 'root', password = '') {
-    connection = mysql.createConnection({
+const createConnection = function () {
+    //read db connection credentials from safe file
+    const [username, password] = parseCredentials();
+
+    return mysql.createConnection({
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
         user: username,
@@ -17,5 +21,6 @@ const createConnection = function (username = 'root', password = '') {
 
 module.exports.getConnection = function () {
     if (!connection) connection = createConnection();
+
     return connection;
 };

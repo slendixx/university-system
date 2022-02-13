@@ -47,6 +47,7 @@ const sendErrorProd = (error, res) => {
 };
 
 module.exports.globalErrorHandler = (error, req, res, next) => {
+    console.log('Global Error Handler');
     console.log(error.stack);
 
     error.statusCode = error.statusCode || 500;
