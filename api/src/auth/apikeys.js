@@ -15,7 +15,7 @@ const generateApikey = ({ length, base }) => {
         .join('');
 };
 
-module.exports.create = catchAsync(async ({ host, alias }) => {
+module.exports.create = async ({ host, alias }) => {
     const apikey = generateApikey({
         length: API_KEY_LENGHT,
         base: API_KEY_BASE,
@@ -23,7 +23,7 @@ module.exports.create = catchAsync(async ({ host, alias }) => {
     const hashCost = await calculateIdealHashCost();
     const hashedKey = await bcrypt.hash(apikey, hashCost);
     const sql =
-        'INSERT INTO `api_key` (`value`, `host`, `alias`) VALUS (?, ?, ?);';
+        'INSERT INTO `api_key` (`value`, `host`, `alias`) VALES (?, ?, ?);';
     const connection = db.getConnection();
     connection.connect();
     connection.query(sql, [hashedKey, host, alias], (error, result) => {
@@ -33,4 +33,4 @@ module.exports.create = catchAsync(async ({ host, alias }) => {
         console.log(result);
     });
     connection.end();
-});
+};

@@ -8,11 +8,11 @@ module.exports.createApikey = catchAsync(async (req, res, next) => {
 
     console.log('host: ' + host, 'alias: ' + alias);
 
-    try {
-        const result = await Apikey.create({ host, alias });
-    } catch (error) {
-        return next(new AppError(error.message, 500));
-    }
+    Apikey.create({ host, alias })
+        .then()
+        .catch(() => {
+            console.log('caught the fuc#&%* error');
+        });
 
     res.status(200).json({
         ok: true,
