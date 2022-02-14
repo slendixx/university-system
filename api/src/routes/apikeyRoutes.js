@@ -7,8 +7,8 @@ const router = express.Router();
 router
     .route('/')
     .get(authenticateApikey, controller.getAll)
-    .post(controller.create);
+    .post(authenticateApikey, controller.create);
 
-router.route('/:id').get(controller.getById);
+router.route('/:id').get(authenticateApikey, controller.getById);
 
 module.exports = router;
