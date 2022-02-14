@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const calculateIdealHashCost = require('../security/calculateIdealHashCost');
 const db = require('../model/dbConnection');
+const AppError = require('../errors/appError');
+const catchAsync = require('../errors/catchAsync');
 
 const API_KEY_LENGHT = 30;
 const API_KEY_BASE = 36;
@@ -45,16 +47,16 @@ module.exports.insert = async ({ host, alias }) => {
     const values = [hashedKey, host, alias];
     const connection = db.getConnection();
 
-    const results = {};
+    const result = {};
     try {
         await db.queryAsync(connection, sql, values);
-        results.apikey = apikey;
-        results.ok = true;
+        result.apikey = apikey;
+        result.ok = true;
     } catch (error) {
-        results.message = error;
-        results.ok = false;
+        result.message = error;
+        result.ok = false;
     }
-    return results;
+    return result;
 };
 
 module.exports.select = async (id = null) => {
@@ -62,13 +64,34 @@ module.exports.select = async (id = null) => {
     if (id) sql += ' WHERE id = ?;';
     const values = [];
     if (id) values.push(id);
-    const results = {};
+    const result = {};
     try {
-        results.rows = await db.queryAsync(db.getConnection(), sql, values);
-        results.ok = true;
+        result.rows = await db.queryAsync(db.getConnection(), sql, values);
+        result.ok = true;
     } catch (error) {
-        results.message = error;
-        results.ok = false;
+        result.message = error;
+        result.ok = false;
     }
-    return results;
+    return result;
 };
+/**
+ * Middleware to authenticate apikeys
+ */
+module.exports.authenticate = catchAsync(async (req, res, next) => {
+    if (!req.headers.apikey)
+        return next(new AppError('No API key was provided', 401));
+    const apikey = req.headers.apikey;
+
+    let keyFound = false;
+    const hashedKeysDataPackets = await module.exports.select();
+    const hashedKeys = hashedKeysDataPackets.rows;
+
+    for (let i = 0; i < hashedKeys.length; i++) {
+        const rowDataPacket = hashedKeys[i];
+        keyFound = await bcrypt.compare(apikey, rowDataPacket.value);
+    }
+
+    if (!keyFound) return next(new AppError('Invalid API key', 401));
+
+    next();
+});
