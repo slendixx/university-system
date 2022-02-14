@@ -1,5 +1,5 @@
 const express = require('express');
-const appError = require('./errors/appError');
+const AppError = require('./errors/appError');
 const errorController = require('./errors/errorController');
 const courseRouter = require('./routes/courseRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -9,6 +9,7 @@ const apikeyRouter = require('./routes/apikeyRoutes');
 const app = express();
 
 //set up middleware stack
+
 app.use(express.json()); //json request body parser
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();

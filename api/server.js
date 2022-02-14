@@ -2,12 +2,16 @@
 const dotenv = require('dotenv');
 const errorController = require('./src/errors/errorController');
 const app = require('./src/app');
+const db = require('./src/model/dbConnection');
 
 //start listening for synchronous exceptions
 process.on('uncaughtException', errorController.handleUncaughtException);
 
 //read env variables
 dotenv.config({ path: './config.env' });
+
+//connect to db
+db.initConnection();
 
 //start listening for requests
 const port = Number(process.env.SV_PORT) || 3000;

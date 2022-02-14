@@ -53,11 +53,11 @@ module.exports.globalErrorHandler = (error, req, res, next) => {
     error.statusCode = error.statusCode || 500;
     error.status = error.status || 'error';
 
-    if (process.env.NODE_ENV === 'development') {
-        return sendErrorDev(error, res);
-    }
-    let operationalError = { ...error };
-
+    return sendErrorDev(error, res);
+    //if (process.env.NODE_ENV === 'development') {
+    //
+    //}
+    // let operationalError = { ...error };
     //TODO transform operationalError depending on what error details we want to display to prod
 };
 
