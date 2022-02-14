@@ -1,5 +1,6 @@
 const AppError = require('../errors/appError');
 const catchAsync = require('../errors/catchAsync');
+const user = require('../model/user');
 
 module.exports.create = catchAsync(async (req, res, next) => {
     const userData = {
@@ -10,4 +11,11 @@ module.exports.create = catchAsync(async (req, res, next) => {
         gender: req.body.gender,
         birthDate: req.body.birthDate,
     };
+
+    await user.insert();
+
+    res.status(200).json({
+        ok: true,
+        data: {},
+    });
 });
