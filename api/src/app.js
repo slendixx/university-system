@@ -5,7 +5,6 @@ const courseRouter = require('./routes/courseRoutes');
 const userRouter = require('./routes/userRoutes');
 const careerRouter = require('./routes/careerRoutes');
 const apikeyRouter = require('./routes/apikeyRoutes');
-const testQueries = require('../testQueries');
 
 const app = express();
 

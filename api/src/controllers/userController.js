@@ -9,10 +9,16 @@ module.exports.create = catchAsync(async (req, res, next) => {
         email: req.body.email,
         password: req.body.password,
         gender: req.body.gender,
-        birthDate: req.body.birthDate,
+        birthYear: req.body.birthYear,
+        birthMonth: req.body.birthMonth,
+        birthDay: req.body.birthDay,
     };
 
-    await user.insert();
+    console.log(userData);
+
+    const result = await user.insert(userData);
+
+    if (!result.ok) return next(new AppError(result.message, 400));
 
     res.status(200).json({
         ok: true,
