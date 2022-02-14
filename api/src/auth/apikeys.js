@@ -81,10 +81,10 @@ module.exports.authenticate = catchAsync(async (req, res, next) => {
     if (!req.headers.apikey)
         return next(new AppError('No API key was provided', 401));
     const apikey = req.headers.apikey;
+    const host = req.headers.host;
+    const sql = 'SELECT `value` FROM api_key WHERE `host` = ?';
 
-    let keyFound = false;
-    const hashedKeysDataPackets = await module.exports.select();
-    const hashedKeys = hashedKeysDataPackets.rows;
+    const hashedKeys = await db.queryAsync(db.getConnection(), sql, host);
 
     for (let i = 0; i < hashedKeys.length; i++) {
         const rowDataPacket = hashedKeys[i];

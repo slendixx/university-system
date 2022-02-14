@@ -6,8 +6,6 @@ module.exports.create = catchAsync(async (req, res, next) => {
     const host = req.headers.host;
     const alias = req.body.alias || 'NULL';
 
-    console.log('host: ' + host, 'alias: ' + alias);
-
     const results = await Apikeys.insert({ host, alias });
     if (!results.ok) {
         return next(new AppError(results.message, 500));
