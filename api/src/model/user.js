@@ -123,7 +123,7 @@ module.exports.select = async (id = null) => {
 };
 
 module.exports.findOne = async (email) => {
-    const sql = 'SELECT `password` FROM usuario WHERE email = ?;';
+    const sql = 'SELECT * FROM usuario WHERE email = ?;';
     const connection = db.getConnection();
     const result = {};
     try {
