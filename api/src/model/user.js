@@ -41,10 +41,10 @@ module.exports.insert = async (data) => {
         userData.gender,
     ];
 
-    console.log(userData);
     const result = {};
     try {
         await db.queryAsync(connection, sql, values);
+        result.message = 'User created.';
         result.ok = true;
     } catch (error) {
         result.message = error;

@@ -14,14 +14,14 @@ module.exports.create = catchAsync(async (req, res, next) => {
         birthDay: req.body.birthDay,
     };
 
-    console.log(userData);
-
     const result = await user.insert(userData);
 
     if (!result.ok) return next(new AppError(result.message, 400));
 
     res.status(200).json({
         ok: true,
-        data: {},
+        data: {
+            status: result.message,
+        },
     });
 });
