@@ -117,6 +117,20 @@ module.exports.select = async (id = null) => {
         result.ok = true;
     } catch (error) {
         result.message = error;
+        result.ok = false;
     }
     return result;
+};
+
+module.exports.findOne = async (email) => {
+    const sql = 'SELECT `password` FROM usuario WHERE email = ?;';
+    const connection = db.getConnection();
+    const result = {};
+    try {
+        result.rows = await db.queryAsync(connection, sql, [email]);
+        result.ok = true;
+    } catch (error) {
+        result.message = error;
+        result.ok = false;
+    }
 };

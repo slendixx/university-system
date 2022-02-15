@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const AppError = require('./errors/appError');
 const errorController = require('./errors/errorController');
 const courseRouter = require('./routes/courseRoutes');
@@ -25,6 +26,9 @@ app.route('/api/v1/').get((_, res, next) => {
     });
 });
 app.use(authenticateApikey); //all requests must provide the header 'apikey' bearing a nonhashed apikey
+require('./auth/passportConfig');
+app.use(passport.initialize());
+
 app.use('/api/v1/courses', courseRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/careers', careerRouter);
