@@ -25,3 +25,32 @@ module.exports.create = catchAsync(async (req, res, next) => {
         },
     });
 });
+
+module.exports.getAll = catchAsync(async (req, res, next) => {
+    const result = await user.select();
+
+    if (result.length === 0)
+        return next(new AppError('No results found.', 404));
+
+    res.status(200).json({
+        ok: true,
+        data: {
+            results: result.rows,
+        },
+    });
+});
+
+module.exports.getById = catchAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const result = await user.select(id);
+
+    if (result.length === 0)
+        return next(new AppError('No results found for the given id.', 404));
+
+    res.status(200).json({
+        ok: true,
+        data: {
+            results: result.rows,
+        },
+    });
+});

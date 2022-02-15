@@ -1,13 +1,68 @@
 const bcrypt = require('bcrypt');
+const isEmail = require('validator').isEmail;
 const calculateIdealHashCost = require('../security/calculateIdealHashCost');
 const mysqlDates = require('../utils/mysqlDates');
 const db = require('./dbConnection');
 
 module.exports.insert = async (data) => {
-    //TODO validate user data
+    const userData = { ...data }; //make a carbon copy of the provided user data to avoid modifying the function argument
+    const result = {
+        ok: false,
+    };
+
+    //validate user data
+    if (!userData.firstName) {
+        result.message = 'No first name was provided';
+        return result;
+    }
+    if (!userData.lastName) {
+        result.message = 'No last name was provided';
+        return result;
+    }
+    if (!userData.email) {
+        result.message = 'No email was provided';
+        return result;
+    }
+    if (!isEmail(userData.email)) {
+        result.message = 'Invalid email';
+        return result;
+    }
+    if (userData.email > 100) {
+        result.message = 'Email must be less than 100 characters long';
+        return result;
+    }
+    if (!userData.password) {
+        result.message = 'No password was provided';
+        return result;
+    }
+    if (userData.password.length < 8 || userData.password.length > 30) {
+        result.message = 'Password must be 8 to 30 characters long';
+        return result;
+    }
+    if (!userData.gender) {
+        result.message = 'No gender was provided';
+        return result;
+    }
+    if (!['m', 'f'].includes(userData.gender)) {
+        result.message = 'Invalid gender';
+        return result;
+    }
+    if (!userData.birthYear) {
+        result.message = 'No birth year was provided';
+        return result;
+    }
+    if (!userData.birthMonth && userData.birthMonth !== 0) {
+        result.message = 'No birth month was provided';
+        return result;
+    }
+    if (!userData.birthDay) {
+        result.message = 'No birth day was provided';
+        return result;
+    }
 
     //complete user data
-    const userData = { ...data }; //make a carbon copy of the provided user data to avoid modifying the function argument
+    userData.firstName = userData.firstName.toLowerCase();
+    userData.lastName = userData.lastName.toLowerCase();
     userData.birthDate = mysqlDates.generateDate(
         new Date(userData.birthYear, userData.birthMonth, userData.birthDay)
     );
@@ -27,7 +82,6 @@ module.exports.insert = async (data) => {
     const hashCost = await calculateIdealHashCost();
     const hashedPassword = await bcrypt.hash(userData.password, hashCost);
     userData.password = hashedPassword;
-    //
     const sql =
         'INSERT INTO usuario (nombre,apellido,email,password,id_rol_usuario,fecha_nacimiento,fecha_creacion_cuenta,genero) VALUES (?,?,?,?,?,?,?,?);';
     const values = [
@@ -41,7 +95,6 @@ module.exports.insert = async (data) => {
         userData.gender,
     ];
 
-    const result = {};
     try {
         await db.queryAsync(connection, sql, values);
         result.message = 'User created.';
@@ -49,6 +102,21 @@ module.exports.insert = async (data) => {
     } catch (error) {
         result.message = error;
         result.ok = false;
+    }
+    return result;
+};
+
+module.exports.select = async (id = null) => {
+    let sql = 'SELECT * FROM usuario';
+    if (id) sql += ' WHERE id = ?;';
+    const values = [];
+    if (id) values.push(id);
+    const result = {};
+    try {
+        result.rows = await db.queryAsync(db.getConnection(), sql, values);
+        result.ok = true;
+    } catch (error) {
+        result.message = error;
     }
     return result;
 };

@@ -5,11 +5,11 @@ const courseRouter = require('./routes/courseRoutes');
 const userRouter = require('./routes/userRoutes');
 const careerRouter = require('./routes/careerRoutes');
 const apikeyRouter = require('./routes/apikeyRoutes');
+const authenticateApikey = require('./auth/apikeys').authenticate;
 
 const app = express();
 
 //set up middleware stack
-
 app.use(express.json()); //json request body parser
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
@@ -24,6 +24,7 @@ app.route('/api/v1/').get((_, res, next) => {
         message: 'API ready to go!',
     });
 });
+app.use(authenticateApikey); //all requests must provide the header 'apikey' bearing a nonhashed apikey
 app.use('/api/v1/courses', courseRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/careers', careerRouter);
