@@ -39,7 +39,7 @@ passport.use(
     new JwtStrategy(
         {
             //secretOrKey: parseJwtSecret(__dirname + '/../../jwt-secret.txt'),
-            secretOrKey: 'IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM', //TODO fix this bullshit
+            secretOrKey: parseJwtSecret('jwt-secret.txt'), //TODO fix this bullshit
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         },
         async (payload, done) => {

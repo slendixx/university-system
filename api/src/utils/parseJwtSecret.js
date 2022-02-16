@@ -1,13 +1,5 @@
-const { reject } = require('bcrypt/promises');
-const { resolve } = require('path');
-
-const readFile = require('fs').readFile;
+const readFileSync = require('fs').readFileSync;
 
 module.exports = (source) => {
-    return new Promise((resolve, reject) => {
-        readFile(source, 'utf-8', (error, data) => {
-            if (error) reject(error);
-            resolve(data);
-        });
-    });
+    return readFileSync(source, 'utf-8');
 };

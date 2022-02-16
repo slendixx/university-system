@@ -7,7 +7,7 @@ module.exports.signJwt = catchAsync(async (req, res, next) => {
     try {
         const token = jwt.sign(
             { id: req.user.id },
-            'IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM'
+            parseJwtSecret('jwt-secret.txt')
         );
         return res.status(200).json({
             ok: true,
