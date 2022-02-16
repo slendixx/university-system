@@ -107,7 +107,7 @@ module.exports.insert = async (data) => {
 };
 
 module.exports.select = async (id = null) => {
-    let sql = 'SELECT * FROM usuario';
+    let sql = 'SELECT * FROM user_with_role';
     if (id) sql += ' WHERE id = ?;';
     const values = [];
     if (id) values.push(id);
@@ -123,7 +123,7 @@ module.exports.select = async (id = null) => {
 };
 
 module.exports.findOne = async (email) => {
-    const sql = 'SELECT * FROM usuario WHERE email = ?;';
+    const sql = 'SELECT * FROM user_with_role WHERE email = ?;';
     const connection = db.getConnection();
     const result = {};
     try {
@@ -133,4 +133,5 @@ module.exports.findOne = async (email) => {
         result.message = error;
         result.ok = false;
     }
+    return result;
 };

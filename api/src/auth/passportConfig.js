@@ -3,39 +3,54 @@ const { Strategy: LocalStrategy } = require('passport-local');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 const testPassword = require('bcrypt').compare;
 const user = require('../model/user');
+const parseJwtSecret = require('../utils/parseJwtSecret');
 
 passport.use(
-    new LocalStrategy(async (email, password, done) => {
-        const result = await user.findOne(email);
-        if (!result.ok) return done(result.message);
+    new LocalStrategy(
+        { usernameField: 'email', passwordField: 'password' },
+        async (email, password, done) => {
+            const result = await user.findOne(email);
 
-        if (result.length === 0)
-            return done(null, false, { message: 'Invalid email of password' });
+            if (!result.ok) return done(result.message);
 
-        const [userData] = result;
+            if (result.length === 0)
+                return done(null, false, {
+                    message: 'Invalid email of password',
+                });
 
-        const isValidPassword = await testPassword(password, userData.password);
+            const [userData] = result.rows;
 
-        if (!isValidPassword)
-            return done(null, false, { message: 'Invalid email or password' });
+            const isValidPassword = await testPassword(
+                password,
+                userData.password
+            );
 
-        return done(null, userData, { message: 'Login successful' });
-    })
+            if (!isValidPassword)
+                return done(null, false, {
+                    message: 'Invalid email or password',
+                });
+
+            return done(null, userData, { message: 'Login successful' });
+        }
+    )
 );
 
 passport.use(
     new JwtStrategy(
         {
-            secretOrKey: process.env.AUTH_SECRET,
+            //secretOrKey: parseJwtSecret(__dirname + '/../../jwt-secret.txt'),
+            secretOrKey: 'IF THE WORD HATE WAS ENGRAVED ON EACH NANOANGSTROM', //TODO fix this bullshit
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         },
         async (payload, done) => {
             const { id: userId } = payload;
             const result = await user.select(userId);
             if (!result.ok) return done(result.message);
+
             if (result.rows.length === 0)
                 return done(null, false, { message: 'Invalid token' });
-            return done(null, user);
+            const [userData] = result.rows;
+            return done(null, userData);
         }
     )
 );
