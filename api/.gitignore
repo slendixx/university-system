@@ -1,3 +1,5 @@
 node_modules/
 credentials.txt
 delete-this.js
+jwt-secret.txt
+apikey.txt

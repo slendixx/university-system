@@ -1,6 +1,6 @@
 const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
-const { Strategy: JwtStrategy } = require('passport-jwt');
+const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 const testPassword = require('bcrypt').compare;
 const user = require('../model/user');
 
@@ -23,4 +23,19 @@ passport.use(
     })
 );
 
-passport.use(new JwtStrategy());
+passport.use(
+    new JwtStrategy(
+        {
+            secretOrKey: process.env.AUTH_SECRET,
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        },
+        async (payload, done) => {
+            const { id: userId } = payload;
+            const result = await user.select(userId);
+            if (!result.ok) return done(result.message);
+            if (result.rows.length === 0)
+                return done(null, false, { message: 'Invalid token' });
+            return done(null, user);
+        }
+    )
+);
