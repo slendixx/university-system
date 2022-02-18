@@ -18,6 +18,20 @@ router
         controller.create
     );
 
-router.route('/:id').get(controller.getById);
+router
+    .route('/:id')
+    .get(
+        passport.authenticate('jwt', { session: false }),
+        restrictTo(['admin', 'docente', 'alumno']),
+        controller.getById
+    )
+    .patch(
+        passport.authenticate('jwt', { session: false }),
+        restrictTo(['admin', 'docente', 'alumno'])
+    )
+    .delete(
+        passport.authenticate('jwt', { session: false }),
+        restrictTo(['admin'])
+    );
 
 module.exports = router;

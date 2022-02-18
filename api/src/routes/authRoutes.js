@@ -13,3 +13,5 @@ router
     );
 
 module.exports = router;
+
+// Here I could create a route for modifying users' authorization

@@ -27,7 +27,8 @@
 - asignaturas
   admin: CRUD
   profesor: RU (only data related to the user)
-  alumno: R (only data related to the user)
+  alumno: RU (only data related to the user)
+  (students updating is meant for them to subscribe/unsubscribe users from asignatures)
 
 - asignaturas/actividades
   admin: CRUD 
@@ -37,9 +38,6 @@
 - usuarios
   admin: CRUD
   profesor, alumno: RU (only data related to the user)
-
-- usuarios/asignaturas
-  This endpoint is used to subscribe/unsubscribe users from asignatures
 
 - carreras
   admin: CRUD

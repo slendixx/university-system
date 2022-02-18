@@ -1,5 +1,5 @@
 const express = require('express');
-const controller = require('../controllers/courseController');
+const controller = require('../controllers/activityController');
 const passport = require('passport');
 const { restrictTo } = require('../controllers/authController');
 
@@ -13,7 +13,7 @@ router
     )
     .post(
         passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin'])
+        restrictTo(['admin', 'docente'])
     );
 
 router
@@ -28,7 +28,7 @@ router
     )
     .delete(
         passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin'])
+        restrictTo(['admin', 'docente'])
     );
 
 module.exports = router;
