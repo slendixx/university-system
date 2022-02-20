@@ -19,9 +19,9 @@ module.exports.select = async (id, getCourses) => {
         'SELECT `id asignatura`, `asignatura`, `distribución anual`, `nivel` FROM career_courses WHERE `id carrera` = ?';
 
     const careersWithCourses = {};
-    careersWithCourses.rows = await result.rows.map(async (rowData) => {
+    careersWithCourses.rows = result.rows.map(async (rowData) => {
         const career = { ...rowData };
-        career.courses = await db.queryAsync(
+        career.courses = db.queryAsync(
             db.getConnection(),
             coursesQuerySql,
             career.id
@@ -29,7 +29,8 @@ module.exports.select = async (id, getCourses) => {
 
         return career;
     });
-    console.log(careersWithCourses);
+    const careersWithCoursesData = await Promise.all(careersWithCourses.rows);
+    console.log(careersWithCoursesData);
     // TODO research Promise.all() a method to resolve several promises
-    return careersWithCourses;
+    return careersWithCoursesData;
 };
