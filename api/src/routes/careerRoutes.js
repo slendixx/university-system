@@ -2,8 +2,11 @@ const express = require('express');
 const controller = require('../controllers/careerController');
 const passport = require('passport');
 const { restrictTo } = require('../controllers/authController');
+const courseRouter = require('./courseRoutes');
 
 const router = express.Router();
+
+router.use('/:careerId/courses', courseRouter);
 
 router
     .route('/')
@@ -18,7 +21,7 @@ router
     );
 
 router
-    .route('/:id')
+    .route('/:careerId')
     .get(
         passport.authenticate('jwt', { session: false }),
         restrictTo(['admin', 'docente', 'alumno']),

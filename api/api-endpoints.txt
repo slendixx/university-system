@@ -1,28 +1,30 @@
 *** The API will have the following endpoints ***
 
-- asignaturas
-- asignaturas/:id
-
-- asignaturas/:id/actividades
-- asignaturas/:id/actividades/:id
-
 - usuarios
 - usuarios/:id
 
 - usuarios/:id/asignaturas
 - usuarios/:id/asignaturas/:id
+- usuarios/:id/asignaturas/:id/actividades
+- usuarios/:id/asignaturas/:id/actividades/:id
 
 - carreras
 - carreras/:id
+- carreras/:id/asignaturas/
+- carreras/:id/asignaturas/:id
 
 *** The API will have the following roles: ***
 
 - admin
 - profesor
 - alumno
-- visitante
+- visitante (no se solicitará un JWT)
 
 *** Functionality of each endpoint for each role ***
+
+************************************************
+*********** THIS HAS TO BE CORRECTED ***********
+************************************************
 
 - asignaturas
   admin: CRUD
@@ -42,3 +44,7 @@
 - carreras
   admin: CRUD
   profesor, alumno, invitado: R
+
+************************************************
+************************************************
+************************************************

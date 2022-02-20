@@ -13,10 +13,6 @@ const app = express();
 
 //set up middleware stack
 app.use(express.json()); //json request body parser
-app.use((req, res, next) => {
-    req.requestTime = new Date().toISOString();
-    next();
-});
 
 //set up routing
 app.route('/api/v1/').get((_, res, next) => {
@@ -31,7 +27,6 @@ app.use(authenticateApikey); //all requests must provide the header 'apikey' bea
 require('./auth/passportConfig');
 app.use(passport.initialize());
 
-app.use('/api/v1/courses', courseRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/careers', careerRouter);
 app.use('/api/v1/apikeys', apikeyRouter);

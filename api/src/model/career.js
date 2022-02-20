@@ -16,6 +16,25 @@ module.exports.select = async (id, getCourses) => {
 
     if (!getCourses) return result;
 
+    //if we are getting the courses from a career, a careerId will always be provided
+
+    const coursesQuerySql =
+        'SELECT `id carrera`, `id asignatura`, `asignatura`, `distribución anual`, `nivel` FROM career_courses WHERE `id carrera` = ?';
+
+    const careerCourses = await db.queryAsync(
+        db.getConnection(),
+        coursesQuerySql,
+        id
+    );
+
+    result.rows[0].courses = careerCourses;
+
+    return result;
+    /*
+    // THIS CODE SEPPARATES THE COURSES FOR EACH CAREER USED FOR
+    // GETTING ALL CAREERS WITH THEIR RESPECTIVE COURSES AT ONCE.
+    // IT SHOULD REPLACE WHAT IS RIGHT ABOVE THIS.
+
     let coursesQuerySql =
         'SELECT `id carrera`, `id asignatura`, `asignatura`, `distribución anual`, `nivel` FROM career_courses WHERE `id carrera` ';
     if (id) coursesQuerySql += '= ?';
@@ -44,6 +63,5 @@ module.exports.select = async (id, getCourses) => {
             (course) => course['id carrera'] === career.id
         );
     });
-
-    return result;
+*/
 };
