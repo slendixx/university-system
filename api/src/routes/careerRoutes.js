@@ -21,7 +21,8 @@ router
     .route('/:id')
     .get(
         passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin', 'docente', 'alumno'])
+        restrictTo(['admin', 'docente', 'alumno']),
+        controller.getById
     )
     .patch(
         passport.authenticate('jwt', { session: false }),

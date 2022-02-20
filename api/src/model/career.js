@@ -15,22 +15,35 @@ module.exports.select = async (id, getCourses) => {
     }
 
     if (!getCourses) return result;
-    const coursesQuerySql =
-        'SELECT `id asignatura`, `asignatura`, `distribución anual`, `nivel` FROM career_courses WHERE `id carrera` = ?';
 
-    const careersWithCourses = {};
-    careersWithCourses.rows = result.rows.map(async (rowData) => {
-        const career = { ...rowData };
-        career.courses = db.queryAsync(
+    let coursesQuerySql =
+        'SELECT `id carrera`, `id asignatura`, `asignatura`, `distribución anual`, `nivel` FROM career_courses WHERE `id carrera` ';
+    if (id) coursesQuerySql += '= ?';
+    else {
+        coursesQuerySql += 'IN ($)';
+        const idSet = result.rows.map((rowData) => rowData.id).join(',');
+        coursesQuerySql = coursesQuerySql.replace('$', idSet);
+    }
+
+    let careerCourses;
+    if (id) {
+        careerCourses = await db.queryAsync(
             db.getConnection(),
             coursesQuerySql,
-            career.id
+            id
         );
+    } else {
+        careerCourses = await db.queryAsync(
+            db.getConnection(),
+            coursesQuerySql
+        );
+    }
 
-        return career;
+    result.rows.forEach((career) => {
+        career.courses = careerCourses.filter(
+            (course) => course['id carrera'] === career.id
+        );
     });
-    const careersWithCoursesData = await Promise.all(careersWithCourses.rows);
-    console.log(careersWithCoursesData);
-    // TODO research Promise.all() a method to resolve several promises
-    return careersWithCoursesData;
+
+    return result;
 };
