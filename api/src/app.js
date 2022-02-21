@@ -2,7 +2,6 @@ const express = require('express');
 const passport = require('passport');
 const AppError = require('./errors/appError');
 const errorController = require('./errors/errorController');
-const courseRouter = require('./routes/courseRoutes');
 const userRouter = require('./routes/userRoutes');
 const careerRouter = require('./routes/careerRoutes');
 const apikeyRouter = require('./routes/apikeyRoutes');

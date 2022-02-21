@@ -107,6 +107,7 @@ module.exports.insert = async (data) => {
 };
 
 module.exports.select = async (id = null) => {
+    //TODO do not return sensitive data. wtf was I thinking
     let sql = 'SELECT * FROM user_with_role';
     if (id) sql += ' WHERE id = ?;';
     const values = [];
