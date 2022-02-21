@@ -18,7 +18,11 @@ module.exports.select = async (id, getCourses) => {
 
     //if we are getting the courses from a career, a careerId will always be provided
 
-    const courses = await course.select(null, 'career', id);
+    const courses = await course.select({
+        id: null,
+        getCoursesFor: 'career',
+        parentId: id,
+    });
     result.rows[0].courses = courses.rows;
 
     return result;

@@ -41,7 +41,7 @@ module.exports.getAll = catchAsync(async (req, res, next) => {
 });
 
 module.exports.getById = catchAsync(async (req, res, next) => {
-    const id = req.params.userId;
+    const id = Number(req.params.userId);
     const result = await user.select(id);
 
     if (result.length === 0)

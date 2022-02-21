@@ -7,10 +7,10 @@ module.exports.getAll = catchAsync(async (req, res, next) => {
     let result;
     const getCoursesFor = req.body.getCoursesFor;
     if (getCoursesFor === 'career')
-        result = await career.select(req.params.careerId, true);
+        result = await career.select(Number(req.params.careerId), true);
 
     if (getCoursesFor === 'user')
-        result = await user.select(req.params.userId, true);
+        result = await user.select(Number(req.params.userId), true);
 
     if (result.rows.length === 0)
         return next(new AppError(result.message, 404));
@@ -28,16 +28,15 @@ module.exports.getById = catchAsync(async (req, res, next) => {
     let result;
     const getCoursesFor = req.body.getCoursesFor;
     if (getCoursesFor === 'career')
-        result = await career.select(req.params.careerId, true);
+        result = await career.select(Number(req.params.careerId), true);
 
     if (getCoursesFor === 'user')
-        result = await user.select(req.params.userId, true);
+        result = await user.select(Number(req.params.userId), true);
 
     if (result.rows.length === 0)
         return next(new AppError(result.message, 404));
 
     const selectedCourse = result.rows[0].courses.find((course) => {
-        console.log(course);
         return course['id asignatura'] === courseId;
     });
 

@@ -124,7 +124,11 @@ module.exports.select = async (id, getCourses) => {
 
     if (!getCourses) return result;
 
-    const courses = await course.select(null, 'user', id);
+    const courses = await course.select({
+        id: null,
+        getCoursesFor: 'user',
+        parentId: id,
+    });
     result.rows[0].courses = courses.rows;
 
     return result;

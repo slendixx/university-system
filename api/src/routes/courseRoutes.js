@@ -2,8 +2,11 @@ const express = require('express');
 const controller = require('../controllers/courseController');
 const passport = require('passport');
 const { restrictTo } = require('../controllers/authController');
+const activityRouter = require('./activityRoutes');
 
 const router = express.Router({ mergeParams: true });
+
+router.use('/:courseId/activities', activityRouter);
 
 router
     .route('/')
