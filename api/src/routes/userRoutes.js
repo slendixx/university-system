@@ -2,8 +2,18 @@ const express = require('express');
 const controller = require('../controllers/userController');
 const passport = require('passport');
 const { restrictTo } = require('../controllers/authController');
+const courseRouter = require('./courseRoutes');
 
 const router = express.Router();
+
+router.use(
+    '/:userId/courses',
+    (req, res, next) => {
+        req.body.getCoursesFor = 'user';
+        next();
+    },
+    courseRouter
+);
 
 router
     .route('/')
@@ -19,7 +29,7 @@ router
     );
 
 router
-    .route('/:id')
+    .route('/:userId')
     .get(
         passport.authenticate('jwt', { session: false }),
         restrictTo(['admin', 'docente', 'alumno']),

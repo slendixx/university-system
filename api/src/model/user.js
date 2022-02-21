@@ -3,6 +3,7 @@ const isEmail = require('validator').isEmail;
 const calculateIdealHashCost = require('../security/calculateIdealHashCost');
 const mysqlDates = require('../utils/mysqlDates');
 const db = require('./dbConnection');
+const course = require('./course');
 
 module.exports.insert = async (data) => {
     const userData = { ...data }; //make a carbon copy of the provided user data to avoid modifying the function argument
@@ -106,7 +107,7 @@ module.exports.insert = async (data) => {
     return result;
 };
 
-module.exports.select = async (id = null) => {
+module.exports.select = async (id, getCourses) => {
     //TODO do not return sensitive data. wtf was I thinking
     let sql = 'SELECT * FROM user_with_role';
     if (id) sql += ' WHERE id = ?;';
@@ -120,6 +121,12 @@ module.exports.select = async (id = null) => {
         result.message = error;
         result.ok = false;
     }
+
+    if (!getCourses) return result;
+
+    const courses = await course.select(null, 'user', id);
+    result.rows[0].courses = courses.rows;
+
     return result;
 };
 

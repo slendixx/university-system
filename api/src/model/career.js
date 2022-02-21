@@ -1,5 +1,5 @@
-const mysqlDates = require('../utils/mysqlDates');
 const db = require('./dbConnection');
+const course = require('./course');
 
 module.exports.select = async (id, getCourses) => {
     let sql = 'SELECT * FROM career_full';
@@ -18,16 +18,8 @@ module.exports.select = async (id, getCourses) => {
 
     //if we are getting the courses from a career, a careerId will always be provided
 
-    const coursesQuerySql =
-        'SELECT `id carrera`, `id asignatura`, `asignatura`, `distribución anual`, `nivel` FROM career_courses WHERE `id carrera` = ?';
-
-    const careerCourses = await db.queryAsync(
-        db.getConnection(),
-        coursesQuerySql,
-        id
-    );
-
-    result.rows[0].courses = careerCourses;
+    const courses = await course.select(null, 'career', id);
+    result.rows[0].courses = courses.rows;
 
     return result;
     /*

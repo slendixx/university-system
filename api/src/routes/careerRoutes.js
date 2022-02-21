@@ -6,7 +6,14 @@ const courseRouter = require('./courseRoutes');
 
 const router = express.Router();
 
-router.use('/:careerId/courses', courseRouter);
+router.use(
+    '/:careerId/courses',
+    (req, res, next) => {
+        req.body.getCoursesFor = 'career';
+        next();
+    },
+    courseRouter
+);
 
 router
     .route('/')
