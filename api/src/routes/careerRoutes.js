@@ -17,11 +17,7 @@ router.use(
 
 router
     .route('/')
-    .get(
-        passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin', 'docente', 'alumno']),
-        controller.getAll
-    )
+    .get(controller.getAll)
     .post(
         passport.authenticate('jwt', { session: false }),
         restrictTo(['admin'])

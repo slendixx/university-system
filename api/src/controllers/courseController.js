@@ -7,7 +7,11 @@ module.exports.getAll = catchAsync(async (req, res, next) => {
     let result;
     const getCoursesFor = req.body.getCoursesFor;
     if (getCoursesFor === 'career')
-        result = await career.select(Number(req.params.careerId), true);
+        result = await career.select({
+            id: Number(req.params.careerId),
+            getCourses: true,
+            filter: null,
+        });
 
     if (getCoursesFor === 'user')
         result = await user.select(Number(req.params.userId), true);
@@ -28,7 +32,11 @@ module.exports.getById = catchAsync(async (req, res, next) => {
     let result;
     const getCoursesFor = req.body.getCoursesFor;
     if (getCoursesFor === 'career')
-        result = await career.select(Number(req.params.careerId), true);
+        result = await career.select({
+            id: Number(req.params.careerId),
+            getCourses: true,
+            filter: null,
+        });
 
     if (getCoursesFor === 'user')
         result = await user.select(Number(req.params.userId), true);

@@ -1,11 +1,15 @@
 const db = require('./dbConnection');
 const course = require('./course');
 
-module.exports.select = async (id, getCourses) => {
+module.exports.select = async ({ id, getCourses, filter }) => {
     let sql = 'SELECT * FROM career_full';
-    if (id) sql += ' WHERE id = ?;';
+    if (id) sql += ' WHERE id = ?';
     const values = [];
     if (id) values.push(id);
+    if (filter === 'topCareers') sql += ' LIMIT 3;';
+    if (filter === 'remote')
+        sql += ' WHERE `modalidad de cursado` LIKE "a distancia"';
+
     const result = {};
     try {
         result.rows = await db.queryAsync(db.getConnection(), sql, values);

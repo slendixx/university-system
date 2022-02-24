@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const passport = require('passport');
 const AppError = require('./errors/appError');
 const errorController = require('./errors/errorController');
@@ -10,6 +11,7 @@ const authenticateApikey = require('./auth/apikeys').authenticate;
 
 const app = express();
 
+app.use(cors());
 //set up middleware stack
 app.use(express.json()); //json request body parser
 
@@ -21,7 +23,8 @@ app.route('/api/v1/').get((_, res, next) => {
         message: 'API ready to go!',
     });
 });
-app.use(authenticateApikey); //all requests must provide the header 'apikey' bearing a nonhashed apikey
+//TODO api keys will be disabled during development
+//app.use(authenticateApikey); //all requests must provide the header 'apikey' bearing a nonhashed apikey
 
 require('./auth/passportConfig');
 app.use(passport.initialize());
