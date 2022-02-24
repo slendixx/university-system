@@ -13,8 +13,11 @@ const CareerDashboard = (props) => {
           style={{ flexBasis: "33.33%" }}
         >
           <Nav.Link as={Link} to={props.linkTo}>
-            <Card className="my-3" style={{ width: "20rem" }}>
-              <Card.Img variant="top" src="images/home2.jpg" />
+            <Card
+              className="my-3"
+              style={{ width: "20rem", minHeight: "20rem" }}
+            >
+              <Card.Img variant="top" src={career.imagen_sm} />
               <Card.Body>
                 <Card.Title>{career.nombre}</Card.Title>
               </Card.Body>
