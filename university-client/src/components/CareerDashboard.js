@@ -12,7 +12,11 @@ const CareerDashboard = (props) => {
           className="d-flex justify-content-center"
           style={{ flexBasis: "33.33%" }}
         >
-          <Nav.Link as={Link} to={props.linkTo}>
+          <Nav.Link
+            as={Link}
+            to={props.linkTo.replace(":idCarrera", career.id)}
+            state={{ career }}
+          >
             <Card
               className="my-3"
               style={{ width: "20rem", minHeight: "20rem" }}

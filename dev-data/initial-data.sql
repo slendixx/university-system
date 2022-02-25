@@ -866,3 +866,176 @@ SET imagen_lg = "https://drive.google.com/uc?export=view&id=1Ex119awNT4vPe-hdxLz
 ",
 imagen_sm = "https://drive.google.com/uc?export=view&id=17OGXiKdjt0WG1XduZeAqwzvSeAP86RA9"
 WHERE id = 10;
+
+UPDATE carrera
+SET descripcion = "{subtitle}Perfil profesional{br}
+ El Contador Público esta capacitado para dar expresión numérica y conceptual a las distintas situaciones que conforman la actividad de una organización y que tienen algún tipo de repercusión económica en ella. Le permitirá reflejar a través de balances u otros reportes contables, los resultados de la gestión, produciendo y proporcionando información y un asesoramiento útil en cuestiones administrativo-contables.{br}
+ {subtitle}Inserción laboral{br}
+ - Administración pública.{br}
+ - Empresas privadas.{br}
+ - Entidades bancarias y financieras.{br}
+ - Peritaje y sindicaturas concursales.{br}
+ En los ámbitos de actuación mencionados (los cuales son enunciativos y no taxativos) podrá ejercer su profesión con conducta ética y respeto al Bien Común, lo que redundará en un permanente y positivo aporte a la comunidad."
+WHERE id = 1;
+
+UPDATE carrera
+SET descripcion = "{subtitle}Perfil profesional{br}
+ El Licenciado en Administración de Empresas UNSTA es un profesional capacitado para administrar recursos de manera eficiente dirigiendo organizaciones públicas o privadas, grandes corporaciones o PYME's, con o sin fines de lucro adaptado siempre a las innovaciones tecnológicas y avances de la información en ambientes complejos, o bien para emprender oportunidades de negocios propios frente a oportunidades detectadas.{br}
+ {subtitle}Inserción laboral{br}
+ - Análisis, planeamiento, organización y control de empresas, en el marco de los valores éticos y sociales brindados durante su formación.{br}
+ - Su campo laboral abarca el ámbito privado y el público, grandes medianas y pequeñas empresas o propios emprendimientos, donde evaluará proyectos de inversión y situaciones económicas financieras.{br}
+ - Liderará equipos de trabajo y efectuará análisis y diagnósticos del contexto internacional donde se inserta una organización.{br}
+ - Sus competencias permiten tomar decisiones sobre el mejor uso de los recursos evaluando los riesgos producto de la incidencia de variables internas y externas a la organización.{br}"
+WHERE id = 2;
+UPDATE carrera
+SET descripcion = "{subtitle}Perfil profesional{br}
+ La carrera de Abogacía de la UNSTA espera que el graduado desarrolle competencias para defender y observar la C.N., sus declaraciones, derechos y garantías tanto del ciudadano como de la sociedad. Ejercer control de constitucionalidad tanto en el ámbito público como privado, de mayoría y minorías preservando un poder judicial independiente.{br}
+ Reconocer las necesidades sociales en relación con las transformaciones del Derecho en un contexto de Estado social, democrático y de compromiso con la promoción de los Derechos Humanos y el cuidado del Medio Ambiente. Guardar independencia ante los poderes públicos, magistrados y demás autoridades. Actuar con independencia de todo interés que no sea coincidente con el de la justicia y con el de la libre defensa de su cliente.{br}
+ Defender las libertades civiles y políticas que aseguren el respeto de la dignidad humana y el bienestar general de una sociedad multicultural y globalizada. Analizar críticamente el sistema jurídico e incentivar el interés por la investigación. Reconocer la apertura hacia otros campos del conocimiento.{br}
+ Actuar con lealtad, probidad y buena fe en el desempeño profesional. Observar con fidelidad el secreto profesional, con las salvedades establecidas por la ley. Asistir en la solución de conflictos en el ámbito extrajudicial como judicial reconociendo los métodos alternativos de resolución de conflictos.{br}
+ Reconocer las diferentes opciones que brinda un tribunal multipuertas y saber asesorar a su cliente sobre brindar una eficaz y oportuna solución a su conflicto. Practicar el asesoramiento, defensa o patrocinio jurídico de personas carentes de recursos.{br}
+ Garantizar la defensa en juicio. Desempeñarse como auxiliar de la justicia, prestando asistencia como colaborador del juez."
+WHERE id = 3;
+UPDATE carrera
+SET descripcion = "{subtitle}Perfil profesional{br}
+ El Licenciado en Ciencia Política  será un profesional con una amplia formación interdisciplinaria que lo capacita para analizar y diagnosticar la realidad política, el desarrollo de fenómenos sociopolíticos y la opinión pública. Así mismo, llevar a cabo trabajos de investigación social como tareas ligadas al desarrollo institucional, dirección en la gerencia y gestión pública y privada, la formulación, evaluación y desarrollo de políticas públicas; asesoramiento público y privado, armado íntegro de campañas electorales.{br}
+ {subtitle}Conocimientos{br}
+ - Adquirir conocimientos y formación general - filosófica, jurídica, económica y política-, relacionados con la problemática política.{br}
+ - Conocer la problemática nacional e internacional, a través de las ideas y movimientos más significativos en la historia del pensamiento político y en la actualidad.{br}
+ - Aprender nociones de participación y representación del poder en la actualidad del sistema argentino y las organizaciones participativas empresariales, sindicales y culturales.{br}
+ - Adquirir una formación interdisciplinar mediante el estudio de las diversas perspectivas histórico-doctrinales y las grandes líneas y escuelas económicas.
+ - Adquirir conocimientos humanísticos a través de una currícula específica que brinda el Departamento Humanístico.{br}
+ {subtitle}Habilidades{br}
+ - Analizar y descubrir los supuestos ideológicos de la política internacional y los factores de poder que la configuran.{br}
+ - Identificar e interpretar los aspectos más significativos de la realidad sociopolítica contemporánea.{br}
+ - Evaluar las implicancias doctrinales, históricas y jurídicas de las relaciones entre la religión y la política, de modo especial en occidente cristiano.{br}
+ - Profundizar la problemática del Estado en nuestro régimen federativo y la personificación de la Nación en el plano interno y el internacional.{br}
+ - Manejar las técnicas de investigación y los métodos propios de la Ciencia Política con el objeto de criticar e interpretar los orígenes, evolución y realidad actual de las distintas corrientes políticas vigentes en nuestro país y en las corrientes políticas internacionales.{br}
+ - Potenciar la capacidad de mando, ejecución y administración de la cosa pública.{br}
+ - Analizar la relación de la política con la economía, la comunicación y el derecho, junto con los temas contemporáneos de la política argentina y latinoamericana.{br}
+ 
+ {subtitle}Actitudes{br}
+ - Valorar las riquezas de la Ciencia Política.{br}
+ - Cultivar un pensamiento crítico de la realidad.{br}
+ - Desempeñar su rol con un claro compromiso ético.{br}
+ 
+ {subtitle}Alcances del título{br}
+ A dos áreas: a) investigación, difusión y promoción del conocimiento político como la aplicación de ese conocimiento al análisis de la vida política e institucional del país; y b) la gestión, el planeamiento y la toma de decisiones en el sector público o privado en el área pertinente a la disciplina de la Ciencia Política.{br}
+ 
+ En tal sentido, el título lo habilita para desempeñarse en las siguientes actividades profesionales:{br}
+ - Ejercer la actividad política propiamente dicha.{br}
+ - Desarrollar tareas de investigación y estudio en equipos interdisciplinarios de temáticas referentes a las relaciones de poder y autoridad entre individuos, grupos y organizaciones que integran el campo político y social;{br}
+ - Describir y predecir fenómenos políticos; y abordar analíticamente procesos de toma de decisión y funcionamiento de estructuras y sistemas políticos.{br}
+ - Actuar como analistas de opinión pública en medios de comunicación y colaborar en la elaboración y estudio de campañas electorales, análisis del discurso, asesoramiento y consultoría en general, elaboración de aplicación de tecnologías de la información y la comunicación en el área de la Ciencia Política.{br}
+ - Participar en la planificación, elaboración, ejecución, diagnóstico y control de políticas públicas, en distintas esferas del Estado.{br}
+ - Colaborar, junto a otros profesionales, en organismos y ámbitos relacionados con diplomacia internacional, comercio exterior, ayudas humanitarias y desarrollo de estudios referentes al análisis de fenómenos de la política internacional.{br}
+ - Trabajar en áreas y espacios institucionales de organizaciones del tercer sector y la sociedad civil que interactúen con el Estado y que sus tareas estén vinculadas a la gestión y el control de las actividades políticas, formulando proyectos colaborativos con gobiernos provinciales, nacionales y/o organismos internacionales;{br}
+ - Coordinar equipos de trabajo en lo ateniente al área de la Ciencia Política.{br}
+ 
+ {subtitle}PPS y Pasantías{br}
+ A partir del 2do semestre del 1er año de inscripción, los alumnos pueden acceder a PPS (field projects) gracias a convenios que la UNSTA mantiene con instituciones públicas y privadas, para favorecer el ejercicio práctico y permanente de los alumnos, fortalecer su trayecto académico y facilitar su futura inserción laboral.{br}
+ 
+ Algunas de las instituciones tucumanas son: Secretaría de Estado de Gobierno y Justicia; Escuela de Gobierno de la Provincia; Honorable Legislatura de Tucumán; Dirección de Asuntos Comunitarios y Sociales del Ministerio del Interior; Secretaría de Estado de Gestión Pública y Planeamiento; Subsecretaría de Tecnologías de la Información; Dirección de Estadística; Instituto Provincial de la Administración Pública (IPAP)."
+WHERE id = 4;
+UPDATE carrera
+SET descripcion = "{subtitle}Perfil profesional{br}
+ Se busca que el perfil del egresado sea un médico general con orientación familiar y comunitaria, comprometido con la realidad socio sanitaria de la región y del país; con principios humanísticos sólidos capaz de brindar atención medica de alta calidad científica y técnica.{br}
+ 
+ {subtitle}Diseño Curricular{br}
+ El diseño curricular de la carrera de medicina de la UNSTA es una currícula integrada, orientada a la comunidad, basado en el desarrollo de competencias y con estrategias de aprendizaje colaborativo. Se propone el análisis de la realidad y de diferentes situaciones de salud a partir de 5 áreas transversales en los 6 años de la carrera: Biológica, Ciencias del comportamiento, Humanística, Social y Práctica profesional.{br}
+ 
+ {subtitle}¿Debo rendir examen de ingreso?{br}
+ Se inicia con un Ciclo de Nivelación Académica (CNA) y al finalizar, se rinde un examen de ingreso. CUPOS LIMITADOS.{br}
+ 
+ {subtitle}¿El CNA tiene costo?{br}
+ Es sin costo para quienes abonen el derecho de examen de ingreso. El monto abonado se descontará de la matricula inicial a los alumnos ingresantes a medicina u otra carrera UNSTA.{br}
+ 
+ {subtitle}¿Puedo inscribirme ahora?{br}
+ Podés preinscribirte ahora en el Ciclo de Nivelación Académica (CNA), abonando sólo el derecho de examen. Podés acercarte a nuestras sedes Central o Yerba Buena, o preinscribirte online durante las 24 hs."
+WHERE id = 5;
+UPDATE carrera
+SET descripcion = "{subtitle}Perfil profesional{br}
+ El Licenciado en Nutrición es un profesional preparado para desempeñarse con competencia e idoneidad en las áreas clínicas, comunitaria, educativa y de gestión .Es un profesional que cuenta con las herramientas necesarias para desempeñarse de manera individual, así como también participar de los equipos sanitarios, programar, administrar racionalmente los alimentos y evaluar acciones relacionadas con la alimentación humana. Para ellos debe considerar aspectos fisiológicos, psicológicos, patológicos, económicos, sociales y culturales de la población donde se encuentra inserto.{br}
+ {subtitle}Inserción Laboral{br}
+ - Está capacitado para el ejercicio libre de la profesión en consultoría.{br}
+ - Instituciones públicas y privadas que prestan servicios de salud y educación.{br}
+ - Diseñar y planificar servicios de alimentación para diversas instituciones (comedores institucionales, clínicas, hospitales, escuelas, etc).{br}
+ - Planificación y ejecución de programas asistenciales que promueven la salud.{br}
+ - Trabajos de investigación en el área salud.{br}
+ - Asesoría industrial y comercial en temas referidos a la producción, conservación y comercialización de alimentos."
+WHERE id = 6;
+UPDATE carrera
+SET descripcion = "{subtitle}Perfil profesional{br}
+ El Ingeniero en Informática de UNSTA es un profesional que cuenta con sólidos conocimientos para la conducción de proyectos y el desarrollo de aplicaciones de software y software-hardware, bajo estructuras convencionales o modelos de Inteligencia Artificial, pudiendo adaptarse a nuevos desafíos tecnológicos.{br}
+ 
+ {subtitle}Diseño curricular{br}
+ Los estudiantes adquieren las habilidades metodologías y técnicas para el análisis, diseño, desarrollo y gestión de tecnologías, empleando estándares internacionales. La formación se complementa con el entrenamiento en modernos laboratorios de ciencias básicas, aplicadas como robótica, entre otras, y de desarrollo de proyectos de software de envergadura profesional, manteniendo contacto con clientes reales, que brindan al egresado la competencia adecuada para insertarse rápidamente en el mercado laboral.{br}
+ 
+{subtitle}Inserción Laboral{br}
+ - Análisis y Diseño de Sistemas de Información.{br}
+ - Desarrollos de aplicaciones web y bajo redes de cualquier tipo.{br}
+ - Diseño y construcción de sistemas empleando técnicas y modelos de IA.{br}
+ - Ejecución y conducción de proyectos de software.{br}
+ - Coordinar el área de sistemas de empresas y organizaciones.{br}
+ - Trabajo interdisciplinario.{br}
+ - Manejo de Idiomas."
+WHERE id = 7;
+UPDATE carrera
+SET descripcion = "{subtitle}Perfil profesional{br}
+ El técnico en desarrollo y calidad de software de la UNSTA será capaz de:{br}
+ - Participar eficientemente en proyectos de software, contando con conocimientos sólidos para el desempeño de puestos específicos dentro del mismo.{br}
+ - Colaborar con el desarrollo, implementación y mantenimiento productos de software.{br}
+ - Colaborar en la evaluación y selección del software basados en los requerimientos del negocio.{br}
+ - Comprender los fundamentos de la administración de un proyecto de software.{br}
+ - Responder a los cambios de contexto con un conocimiento adecuado sobre la naturaleza del hombre como persona, trabajando en equipo interdisciplinarios.{br}
+ - Abordar las nuevas tecnologías con responsabilidad ético social.{br}
+ 
+ {subtitle}Inserción laboral{br}
+ - Colaborar en el Análisis, Diseño, Desarrollo e implementación de aplicaciones de software.{br}
+ - Utilizar metodologías de desarrollo de software e interactuar con clientes en sesiones de captación de necesidades.{br}
+ - Mantener aplicaciones de software.{br}
+ - Diseño y ejecución de pruebas de software.{br}
+ - Planteamiento de estrategias de control de la calidad y testing del software, para reducir los riesgos de un proyecto de software.{br}
+ 
+ {subtitle}Requisitos{br}
+ - Estudios secundarios completos y excepcionalmente los mayores de 25 años que no reúnan esta condición podrán ingresar siempre que demuestren, que tienen preparación o experiencia laboral acorde a la carrera (Art Nº 7 Ley de Educación Superior).{br}
+ - La carrera podrá admitir alumnos extranjeros, El Comité académico, en cada caso analizará los títulos, los convenios existentes entre los distintos organismos de los países, los planes de estudio y la duración total, pudiéndose requerir además una entrevista personal a los fines de asesorar sobre la incorporación de los alumnos. También sugerirá los cursos de nivelación necesarios."
+WHERE id = 8;
+UPDATE carrera
+SET descripcion = "{subtitle}La Carrera{br}
+La carrera de Licenciatura en Historia (Ciclo de Complementación Curricular) apunta a la formación de investigadores y profesionales universitarios idóneos en el análisis y la producción de conocimiento, privilegiando el abordaje metodológico de enfoques, técnicas y prácticas propias del oficio.{br}
+ 
+ Además, al finalizar su carrera, nuestros egresados estarán preparados para desempeñarse en múltiples campos vinculados al conocimiento histórico, integrando equipos interdisciplinarios en las áreas del turismo, de la gestión de fuentes documentales, de la valorización del patrimonio cultural y en empresas editoriales, entre otras.{br}
+ 
+ Las opciones de soporte educativo online y de la modalidad a distancia posibilitan un cursado ágil, poniendo a disposición de nuestros estudiantes las herramientas tecnológicas necesarias para la adquisición de contenidos de calidad y el intercambio permanente con sus docentes.{br}
+ 
+ Esta propuesta garantiza el acompañamiento continuo y personalizado del proyecto de investigación del estudiante, desde el inicio de cursado hasta la defensa de la tesina de licenciatura.{br}
+ 
+ {subtitle}Características{br}
+ La Licenciatura en Historia tiene una duración de cinco (5) semestres:{br}
+ - En los primeros cuatro semestres se cursarán distintas materias, anuales o cuatrimestrales, seminarios optativos y un espacio humanístico.{br}
+ - Durante los dos años se dictará metodología de la investigación, que incluye la elaboración del proyecto de tesina en primer año y el taller de redacción en el segundo.{br}
+ - En el último semestre está prevista la elaboración de la versión final de la tesina.{br}
+ 
+ {subtitle}Admisión{br}
+ Para poder cursar la carrera es necesario haber obtenido el título de Profesor de Historia con cuatro (4) años de duración, con una carga horaria mayor a 2800 horas reloj.{br}
+ 
+ {subtitle}Objetivos{br}
+ - Articular los trayectos educativos de institutos de formación docente con la carrera universitaria.{br}
+ - Ofrecer la posibilidad de explorar nuevos campos de desempeño profesional vinculados con los avances de la disciplina histórica.{br}
+ - Ampliar el campo de acción del docente brindando a los futuros licenciados herramientas para la investigación y el análisis de la producción del conocimiento."
+WHERE id = 9;
+UPDATE carrera
+SET descripcion = "{subtitle}Perfil profesional{br}
+ El profesorado en Ciencias Económicas es una carrera diseñada específicamente para potenciar las competencias pedagógicas de los profesionales que se desempeñan en el ámbito de la Economía y Administración. Tiene duración de 2 años y se dicta integrando actividades sincrónicas y asincrónicas.{br}
+ Se trata de un itinerario educativo con validez nacional (al cual se puede acceder únicamente con título de grado) y una modalidad de aprendizaje basada principalmente en formas de investigación guiada y puesta en común de los saberes. Los procesos de evaluación realizados por medio de trabajos de investigación (en lugar de exámenes ‘tradicionales’) generan dinámicas innovadoras y creativas.{br}
+ 
+ Desde el punto de vista práctico, los participantes reciben al inicio de cada cuatrimestre propuestas temáticas que deberán ser abordadas interdisciplinariamente, realizando por etapas sus propias investigaciones con el apoyo de un grupo de docentes. De esta manera el profesional/estudiante podrá administrar sus tiempos y promover su formación permanente, asimilando un nuevo modo de enseñar y aprender.{br}
+ 
+ {subtitle}Alcances del Título{br}
+ Nuestros egresados estarán capacitados para:{br}
+ - Ejercer la docencia en los niveles de Educación Secundaria y Superior del Sistema Educativo en el campo de la Economía y Administración.{br}
+ - Planificar, conducir y evaluar los procesos de enseñanza y de aprendizaje en el Nivel Secundario y Superior en el campo de la Economía y de la Administración.{br}
+ - Participar activamente en equipos de trabajo para la planificación y ejecución de proyectos educativos institucionales de los Niveles de Educación Secundaria y Superior.{br}
+ - Colaborar con los equipos interdisciplinarios de las instituciones educativas en lo vinculante a la administración y la economía institucional."
+WHERE id = 10;

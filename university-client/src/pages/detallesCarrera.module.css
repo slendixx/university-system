@@ -1,0 +1,14 @@
+@media (max-width: 600px) {
+  .textFiller {
+    display: none;
+  }
+  .text {
+    margin: 0 2rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .accordionFiller {
+    display: none;
+  }
+}

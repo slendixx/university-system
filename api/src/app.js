@@ -14,6 +14,11 @@ const app = express();
 app.use(cors());
 //set up middleware stack
 app.use(express.json()); //json request body parser
+app.use((req, res, next) => {
+    console.log('request to: ' + req.originalUrl);
+    console.log('method: ' + req.method);
+    next();
+});
 
 //set up routing
 app.route('/api/v1/').get((_, res, next) => {
