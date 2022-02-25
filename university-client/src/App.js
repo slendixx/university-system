@@ -4,6 +4,8 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Inicio from "./pages/Inicio";
 import OfertaAcademica from "./pages/OfertaAcademica";
 import DetallesCarrera from "./pages/DetallesCarrera";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         path="/oferta-academica/detalles-carrera/:idCarrera"
         element={<DetallesCarrera />}
       />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/campus-virtual" />
       <Route
         path="/campus-virtual/detalles-actividad"

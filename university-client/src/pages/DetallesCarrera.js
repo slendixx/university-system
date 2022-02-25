@@ -35,7 +35,7 @@ const DetallesCarrera = (props) => {
     };
 
     getCourses(career.id);
-  }, []);
+  }, [career]);
   const renderDescription = (descriptionRaw) => {
     const descriptionParts = descriptionRaw.split("{br}");
     return descriptionParts.map((part, index) => {
@@ -66,9 +66,14 @@ const DetallesCarrera = (props) => {
       <Banner imgSrc={career.imagen_lg} title={career.nombre} />
       <Row>
         <Col className="d-flex justify-content-center">
-          <Button variant="primary" className="mt-5 px-5 py-2">
-            Inscribirse
-          </Button>
+          <Link
+            to="/signup"
+            state={{ careerName: career.nombre, careerId: career.id }}
+          >
+            <Button variant="primary" className="mt-5 px-5 py-2">
+              Inscribirse
+            </Button>
+          </Link>
         </Col>
       </Row>
       {renderDescription(career.descripcion)}
