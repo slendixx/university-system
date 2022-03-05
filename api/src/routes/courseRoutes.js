@@ -15,7 +15,6 @@ router
         passport.authenticate('jwt', { session: false }),
         restrictTo(['admin'])
     );
-//TODO implement 'guest' routes AKA routes that don't require a JWT
 
 router
     .route('/:courseId')

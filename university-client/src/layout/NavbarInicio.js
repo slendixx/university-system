@@ -4,7 +4,6 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
 const NavbarInicio = () => {
-  //TODO Add an href to the links on the Navbar
   return (
     <Navbar bg="light" expand="lg">
       <Container>

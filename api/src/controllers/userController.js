@@ -12,6 +12,7 @@ module.exports.create = catchAsync(async (req, res, next) => {
         birthYear: req.body.birthYear,
         birthMonth: req.body.birthMonth,
         birthDay: req.body.birthDay,
+        career: req.body.career,
     };
 
     const result = await user.insert(userData);

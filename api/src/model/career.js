@@ -6,7 +6,9 @@ module.exports.select = async ({ id, getCourses, filter }) => {
     if (id) sql += ' WHERE id = ?';
     const values = [];
     if (id) values.push(id);
-    if (filter === 'topCareers') sql += ' LIMIT 3;';
+    if (filter === 'topCareers')
+        sql =
+            'SELECT career_full.* , COUNT(career_full.nombre) as `cantidad de estudiantes` from usuario inner join career_full ON usuario.id_carrera = career_full.id GROUP BY career_full.nombre ORDER BY `cantidad de estudiantes` DESC LIMIT 3;';
     if (filter === 'remote')
         sql += ' WHERE `modalidad de cursado` LIKE "a distancia"';
 

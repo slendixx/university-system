@@ -60,6 +60,28 @@ module.exports.insert = async (data) => {
         result.message = 'No birth day was provided';
         return result;
     }
+    if (!userData.career) {
+        result.message = 'No career was specified';
+        return result;
+    }
+    //verify if input careerId exists
+    const verifyCareerId = 'CALL career_exists(?)';
+    let careerExistsResult;
+    try {
+        careerExistsResult = await db.queryAsync(
+            db.getConnection(),
+            verifyCareerId,
+            userData.career
+        );
+    } catch (error) {
+        result.message = error;
+        result.ok = false;
+    }
+
+    if (!careerExistsResult[0][0].exists) {
+        result.message = 'The specified career does not exist';
+        return result;
+    }
 
     //complete user data
     userData.firstName = userData.firstName.toLowerCase();

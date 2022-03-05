@@ -39,7 +39,7 @@ passport.use(
     new JwtStrategy(
         {
             //secretOrKey: parseJwtSecret(__dirname + '/../../jwt-secret.txt'),
-            secretOrKey: parseJwtSecret('jwt-secret.txt'), //TODO fix this bullshit
+            secretOrKey: parseJwtSecret('jwt-secret.txt'),
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         },
         async (payload, done) => {

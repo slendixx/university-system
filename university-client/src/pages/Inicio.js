@@ -78,5 +78,4 @@ const Inicio = (props) => {
   );
 };
 
-//https://drive.google.com/file/d/1Ft2xjgHf6hM9Gj5BEHD4gg0Ss0l5Ii3U/view?usp=sharing
 export default Inicio;

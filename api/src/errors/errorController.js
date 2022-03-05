@@ -48,17 +48,16 @@ const sendErrorProd = (error, res) => {
 
 module.exports.globalErrorHandler = (error, req, res, next) => {
     console.log('Global Error Handler');
+    // console.log({ NODE_ENV: process.env.NODE_ENV });
     console.log(error.stack);
 
     error.statusCode = error.statusCode || 500;
     error.status = error.status || 'error';
 
-    return sendErrorDev(error, res);
-    //if (process.env.NODE_ENV === 'development') {
-    //
-    //}
-    // let operationalError = { ...error };
-    //TODO transform operationalError depending on what error details we want to display to prod
+    if (process.env.NODE_ENV === 'dev') return sendErrorDev(error, res);
+    if (error.message.includes('ER_DUP_ENTRY'))
+        error.message = 'The specified email is already in use.';
+    return sendErrorProd(error, res);
 };
 
 module.exports.handleDBConnectionError = (error) => {
