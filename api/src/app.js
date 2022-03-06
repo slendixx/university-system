@@ -17,6 +17,7 @@ app.use(express.json()); //json request body parser
 app.use((req, res, next) => {
     console.log('request to: ' + req.originalUrl);
     console.log('method: ' + req.method);
+
     next();
 });
 

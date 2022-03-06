@@ -6,6 +6,7 @@ import NavbarInicio from "../layout/NavbarInicio";
 import CarouselInicio from "../components/CarouselInicio";
 import CareerDashboard from "../components/CareerDashboard";
 import fetchFromApi from "../utils/fetchFromApi";
+import { Link } from "react-router-dom";
 
 const Inicio = (props) => {
   const [topCareers, setTopCareers] = useState([]);

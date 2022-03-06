@@ -13,7 +13,7 @@ passport.use(
 
             if (!result.ok) return done(result.message);
 
-            if (result.length === 0)
+            if (result.rows.length === 0)
                 return done(null, false, {
                     message: 'Invalid email of password',
                 });

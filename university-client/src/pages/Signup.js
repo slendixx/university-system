@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 import axios from "axios";
+import apiHost from "../utils/apiHost";
 
 const Signup = (props) => {
   const location = useLocation();
@@ -22,7 +23,7 @@ const Signup = (props) => {
   useEffect(() => {
     if (!formSubmitted) return;
     axios
-      .post("http://127.0.0.1:3000/api/v1/auth/signup", newUserData)
+      .post(apiHost + "auth/signup", newUserData)
       .then((response) => {
         console.log(response.data.data.status);
         setSignupError(false);
@@ -104,23 +105,19 @@ const Signup = (props) => {
           <Subtitle>Inscripción</Subtitle>
         </Col>
       </Row>
-      {validationError ? (
+      {validationError && (
         <Row>
           <Col className="d-flex justify-content-center">
             <Alert variant="warning">{validationErrorMessage}</Alert>
           </Col>
         </Row>
-      ) : (
-        ""
       )}
-      {signupError ? (
+      {signupError && (
         <Row>
           <Col className="d-flex justify-content-center">
             <Alert variant="danger">{signupErrorMessage}</Alert>
           </Col>
         </Row>
-      ) : (
-        ""
       )}
 
       <Row className="mb-3">
