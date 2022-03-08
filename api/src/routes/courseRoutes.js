@@ -10,7 +10,11 @@ router.use('/:courseId/activities', activityRouter);
 
 router
     .route('/')
-    .get(controller.getAll)
+    .get(
+        passport.authenticate('jwt', { session: false }),
+        restrictTo(['admin', 'docente', 'alumno']),
+        controller.getAll
+    )
     .post(
         passport.authenticate('jwt', { session: false }),
         restrictTo(['admin'])

@@ -106,7 +106,7 @@ module.exports.insert = async (data) => {
     const hashedPassword = await bcrypt.hash(userData.password, hashCost);
     userData.password = hashedPassword;
     const sql =
-        'INSERT INTO usuario (nombre,apellido,email,password,id_rol_usuario,fecha_nacimiento,fecha_creacion_cuenta,genero) VALUES (?,?,?,?,?,?,?,?);';
+        'INSERT INTO usuario (nombre,apellido,email,password,id_rol_usuario,fecha_nacimiento,fecha_creacion_cuenta,genero) VALUES (?,?,?,?,?,?,?,?);'; //TODO not setting the value of career on user creation
     const values = [
         userData.firstName,
         userData.lastName,
@@ -131,7 +131,7 @@ module.exports.insert = async (data) => {
 
 module.exports.select = async (id, getCourses) => {
     //TODO do not return sensitive data. wtf was I thinking
-    let sql = 'SELECT * FROM user_with_role';
+    let sql = 'SELECT * FROM user_full';
     if (id) sql += ' WHERE id = ?;';
     const values = [];
     if (id) values.push(id);
@@ -142,6 +142,12 @@ module.exports.select = async (id, getCourses) => {
     } catch (error) {
         result.message = error;
         result.ok = false;
+    }
+
+    if (result.rows.length === 0) {
+        result.message = 'No user found for the given id'; //TODO add 404 checks to other models, espcially careers
+        result.ok = false;
+        return result;
     }
 
     if (!getCourses) return result;
@@ -157,7 +163,7 @@ module.exports.select = async (id, getCourses) => {
 };
 
 module.exports.findOne = async (email) => {
-    const sql = 'SELECT * FROM user_with_role WHERE email = ?;';
+    const sql = 'SELECT * FROM user_full WHERE email = ?;';
     const connection = db.getConnection();
     const result = {};
     try {

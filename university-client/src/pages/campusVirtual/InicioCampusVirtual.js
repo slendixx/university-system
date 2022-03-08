@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import Col from "react-bootstrap/col";
 import Row from "react-bootstrap/row";
 import Button from "react-bootstrap/Button";
-import NavbarInicio from "../layout/NavbarInicio";
-import Subtitle from "../components/Subtitle";
-import Banner from "../components/Banner";
+import NavbarInicio from "../../layout/NavbarInicio";
+import Subtitle from "../../components/Subtitle";
+import Banner from "../../components/Banner";
 
 const InicioCampusVirtual = () => {
   return (
