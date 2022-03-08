@@ -3,25 +3,22 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
-const NavbarInicio = () => {
+const NavbarCampusVirtual = () => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand>Esteban's University</Navbar.Brand>
+        <Navbar.Brand>Esteban's University Virtual Campus</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/inicio">
-              Inicio
+            <Nav.Link as={Link} to="/asignaturas">
+              Mis Asignaturas
             </Nav.Link>
-            <Nav.Link as={Link} to="/oferta-academica">
-              Oferta Académica
+            <Nav.Link as={Link} to="/autogestion">
+              Autogestion
             </Nav.Link>
-            <Nav.Link as={Link} to="/campus-virtual">
-              Campus Virtual
-            </Nav.Link>
-            <Nav.Link as={Link} to="/contacto">
-              Contacto
+            <Nav.Link as={Link} to="/logout">
+              Cerras Sesión
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
@@ -30,4 +27,4 @@ const NavbarInicio = () => {
   );
 };
 
-export default NavbarInicio;
+export default NavbarCampusVirtual;

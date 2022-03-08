@@ -13,6 +13,7 @@ module.exports.signJwt = catchAsync(async (req, res, next) => {
             ok: true,
             data: {
                 token: token,
+                userId: req.user.id,
             },
         });
     } catch (error) {

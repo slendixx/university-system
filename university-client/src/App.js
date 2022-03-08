@@ -6,6 +6,11 @@ import OfertaAcademica from "./pages/OfertaAcademica";
 import DetallesCarrera from "./pages/DetallesCarrera";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import CheckLogin from "./auth/CheckLogin";
+import InicioCampusVirtual from "./pages/InicioCampusVirtual";
+import Autogestion from "./pages/Autogestion";
+import Asignaturas from "./pages/Asignaturas";
+import DetallesActividad from "./pages/DetallesActividad";
 
 function App() {
   return (
@@ -22,16 +27,39 @@ function App() {
       />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/campus-virtual" />
-      <Route
-        path="/campus-virtual/detalles-actividad"
-        element={<Navigate replace to="/campus-virtual" />}
-      />
-      <Route path="/campus-virtual/detalles-actividad/:idActividad" />
-      <Route path="/autogestion-alumnos" />
-      <Route path="/autogestion-docentes" />
+
+      <Route path="/campus-virtual" element={<InicioCampusVirtual />} />
       <Route path="/contacto" />
       <Route path="/*" element={<Navigate replace to="/inicio" />} />
+
+      <Route
+        path="/campus-virtual/autogestion"
+        element={
+          <CheckLogin redirectRoute={"/login"}>
+            <Autogestion />
+          </CheckLogin>
+        }
+      />
+      <Route
+        path="/campus-virtual/asignaturas"
+        element={
+          <CheckLogin redirectRoute={"/login"}>
+            <Asignaturas />
+          </CheckLogin>
+        }
+      />
+      <Route
+        path="/campus-virtual/asignaturas/detalles-actividad"
+        element={<Navigate replace to="/campus-virtual/asignaturas" />}
+      />
+      <Route
+        path="/campus-virtual/asignaturas/detalles-actividad/:id"
+        element={
+          <CheckLogin redirectRoute={"/login"}>
+            <DetallesActividad />
+          </CheckLogin>
+        }
+      />
     </Routes>
   );
 }

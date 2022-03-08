@@ -25,11 +25,12 @@ const Login = (props) => {
     axios
       .post(apiHost + "auth/login", loginData)
       .then((response) => {
-        const { token } = response.data.data;
+        const { token, userId } = response.data.data;
 
         setAuthError(false);
         setRedirect(true);
         localStorage.setItem("jwt", token);
+        localStorage.setItem("userId", userId);
       })
       .catch((error) => {
         setRedirect(false);

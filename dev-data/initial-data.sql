@@ -867,6 +867,8 @@ SET imagen_lg = "https://drive.google.com/uc?export=view&id=1Ex119awNT4vPe-hdxLz
 imagen_sm = "https://drive.google.com/uc?export=view&id=17OGXiKdjt0WG1XduZeAqwzvSeAP86RA9"
 WHERE id = 10;
 
+
+
 UPDATE carrera
 SET descripcion = "{subtitle}Perfil profesional{br}
  El Contador Público esta capacitado para dar expresión numérica y conceptual a las distintas situaciones que conforman la actividad de una organización y que tienen algún tipo de repercusión económica en ella. Le permitirá reflejar a través de balances u otros reportes contables, los resultados de la gestión, produciendo y proporcionando información y un asesoramiento útil en cuestiones administrativo-contables.{br}
