@@ -17,7 +17,8 @@ router
     )
     .post(
         passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin'])
+        restrictTo(['admin', 'docente', 'alumno']),
+        controller.add
     );
 
 router
@@ -33,7 +34,8 @@ router
     )
     .delete(
         passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin'])
+        restrictTo(['admin', 'docente', 'alumno']),
+        controller.delete
     );
 
 module.exports = router;

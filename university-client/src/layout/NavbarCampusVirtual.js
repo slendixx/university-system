@@ -17,10 +17,16 @@ const NavbarCampusVirtual = (props) => {
             </Nav.Link>
 
             <NavDropdown title="Autogestión" id="autogestion-dropdown">
-              <NavDropdown.Item as={Link} to="/campus-virtual/autogestion">
+              <NavDropdown.Item
+                as={Link}
+                to="/campus-virtual/autogestion/inscripcion"
+              >
                 Inscribirse/Anular Inscripción
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/campus-virtual/autogestion">
+              <NavDropdown.Item
+                as={Link}
+                to="/campus-virtual/autogestion/calificaciones"
+              >
                 Calificaciones
               </NavDropdown.Item>
             </NavDropdown>

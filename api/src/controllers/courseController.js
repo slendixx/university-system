@@ -2,6 +2,7 @@ const AppError = require('../errors/appError');
 const catchAsync = require('../errors/catchAsync');
 const career = require('../model/career');
 const user = require('../model/user');
+const course = require('../model/course');
 
 module.exports.getAll = catchAsync(async (req, res, next) => {
     let result;
@@ -58,4 +59,44 @@ module.exports.getById = catchAsync(async (req, res, next) => {
                 results: selectedCourse,
             },
         });
+});
+module.exports.add = catchAsync(async (req, res, next) => {
+    const id = Number(req.params.userId);
+    const inputData = {
+        id,
+        courseId: req.body.courseId,
+    };
+    const result = await course.insertUserCourse(inputData);
+    if (!result.ok) return next(new AppError(result.message, 400));
+
+    const status =
+        result.message !== undefined
+            ? result.message
+            : 'user subscribed to course successfully';
+
+    res.status(201).json({
+        ok: true,
+        data: {
+            status,
+        },
+    });
+});
+
+module.exports.delete = catchAsync(async (req, res, next) => {
+    const id = Number(req.params.userId); //TODO investigate if getting the user id from params instead of req.user is causing problems
+    const courseId = Number(req.params.courseId);
+    const inputData = {
+        id,
+        courseId,
+    };
+
+    const result = await course.deleteUserCourse(inputData);
+    if (!result.ok) return next(new AppError(result.message, 400));
+
+    res.status(204).json({
+        ok: true,
+        data: {
+            status: 'user unsubscribed from course successfully',
+        },
+    });
 });

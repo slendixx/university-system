@@ -39,3 +39,52 @@ module.exports.select = async ({
 
     return result;
 };
+
+module.exports.insertUserCourse = async ({ id, courseId }) => {
+    let sql = 'CALL user_course_exists(?,?);';
+    let userCourseExistsResult;
+    const connection = db.getConnection();
+    const result = {};
+
+    try {
+        userCourseExistsResult = await db.queryAsync(connection, sql, [
+            id,
+            courseId,
+        ]);
+    } catch (error) {
+        result.message = error;
+        result.ok = false;
+    }
+    if (userCourseExistsResult[0][0].exists) {
+        result.ok = true;
+        result.message = 'user is already subscribed';
+        return result;
+    }
+
+    sql =
+        'INSERT INTO asignatura_usuario (id_usuario, id_asignatura) VALUES (?,?);';
+    try {
+        result.rows = await db.queryAsync(connection, sql, [id, courseId]);
+        result.ok = true;
+    } catch (error) {
+        result.message = error;
+        result.ok = false;
+    }
+    return result;
+};
+
+module.exports.deleteUserCourse = async ({ id, courseId }) => {
+    const sql =
+        'DELETE FROM asignatura_usuario WHERE id_usuario = ? AND id_asignatura = ?;';
+    const connection = db.getConnection();
+    const result = {};
+    try {
+        result.rows = await db.queryAsync(connection, sql, [id, courseId]);
+        result.ok = true;
+    } catch (error) {
+        result.message = error;
+        result.ok = false;
+    }
+
+    return result;
+};
