@@ -31,7 +31,11 @@ const NavbarCampusVirtual = (props) => {
               </NavDropdown.Item>
             </NavDropdown>
 
-            <Nav.Link as={Link} to="/logout">
+            <Nav.Link
+              as={Link}
+              to="/logout"
+              state={{ redirectRoute: "/campus-virtual" }}
+            >
               Cerrar Sesión
             </Nav.Link>
           </Nav>

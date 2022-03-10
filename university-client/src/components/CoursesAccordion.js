@@ -13,10 +13,10 @@ const NIVELES = [
 
 const CoursesAccordion = (props) => {
   const renderCoursesTableRows = (courses) => {
-    return courses.map((course) => {
+    return courses.map((course, index) => {
       if (course["distribución anual"] === "anual") {
         return (
-          <tr>
+          <tr key={index}>
             <td>{course.asignatura}</td>
             <td colSpan={2}></td>
           </tr>
@@ -25,7 +25,7 @@ const CoursesAccordion = (props) => {
 
       if (course["distribución anual"] === "1er cuat") {
         return (
-          <tr>
+          <tr key={index}>
             <td></td>
             <td>{course.asignatura}</td>
             <td></td>
@@ -34,7 +34,7 @@ const CoursesAccordion = (props) => {
       }
       if (course["distribución anual"] === "2do cuat") {
         return (
-          <tr>
+          <tr key={index}>
             <td colSpan={2}></td>
 
             <td>{course.asignatura}</td>

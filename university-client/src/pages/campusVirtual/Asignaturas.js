@@ -27,7 +27,6 @@ const Asignaturas = () => {
         console.log(error.response);
       });
   }, []);
-
   return (
     <Fragment>
       <NavbarCampusVirtual />

@@ -4,6 +4,7 @@
   justify-content: center;
   text-align: center;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: capitalize;
   font-size: 3rem;
   color: #3c3f43;
 }

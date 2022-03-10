@@ -6,6 +6,7 @@ import OfertaAcademica from "./pages/OfertaAcademica";
 import DetallesCarrera from "./pages/DetallesCarrera";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import CheckLogin from "./auth/CheckLogin";
 import InicioCampusVirtual from "./pages/campusVirtual/InicioCampusVirtual";
 import Asignaturas from "./pages/campusVirtual/Asignaturas";
@@ -28,6 +29,7 @@ function App() {
       />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
 
       <Route path="/campus-virtual" element={<InicioCampusVirtual />} />
       <Route path="/contacto" />

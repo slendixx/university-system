@@ -8,6 +8,16 @@ import Alert from "react-bootstrap/Alert";
 import NavbarCampusVirtual from "../../layout/NavbarCampusVirtual";
 import Subtitle from "../../components/Subtitle";
 import SuscriptionTable from "../../components/SuscriptionTable";
+import groupBy from "../../utils/groupBy";
+
+const NIVELES = [
+  "Primer Nivel",
+  "Segundo Nivel",
+  "Tercer Nivel",
+  "Cuarto Nivel",
+  "Quinto Nivel",
+  "Sexto Nivel",
+];
 
 const Inscripcion = () => {
   const [userData, setUserData] = useState({});
@@ -83,6 +93,7 @@ const Inscripcion = () => {
             );
           }
           fetchUserData();
+          fetchCareerCourses();
         })
         .catch((error) => {
           console.log(error.response);
@@ -106,6 +117,7 @@ const Inscripcion = () => {
             "Te desinscribiste de la asignatura satisfactoriamente."
           );
           fetchUserData();
+          fetchCareerCourses();
         })
         .catch((error) => {
           console.log(error.response);
@@ -117,13 +129,30 @@ const Inscripcion = () => {
     setSubscriptionInfo(actionInfo);
   };
 
+  const renderSuscriptionTable = (coursesByLevel) => {
+    return coursesByLevel.map((courses, index) => {
+      return (
+        <Row key={index}>
+          <Col>
+            <Subtitle>{NIVELES[index]}</Subtitle>
+            <SuscriptionTable
+              courses={courses}
+              alreadySubscribedIds={alreadySubscribedIds}
+              actionHandler={handleAction}
+            />
+          </Col>
+        </Row>
+      );
+    });
+  };
+
   let alreadySubscribedIds = [];
   if (userData.courses)
     alreadySubscribedIds = userData.courses.map((course) => {
       return course["id asignatura"];
     });
 
-  const renderSuscriptionTable = careerCourses.length !== 0;
+  const coursesAvailableForRender = careerCourses.length !== 0;
 
   //TODO sepparate courses by level, like on the career details page
   return (
@@ -143,19 +172,9 @@ const Inscripcion = () => {
         </Row>
       )}
 
-      <Row>
-        <Col>
-          <Subtitle>Primer Nivel</Subtitle>
-
-          {userData.id_carrera && renderSuscriptionTable && (
-            <SuscriptionTable
-              courses={careerCourses}
-              alreadySubscribedIds={alreadySubscribedIds}
-              actionHandler={handleAction}
-            />
-          )}
-        </Col>
-      </Row>
+      {userData.id_carrera &&
+        coursesAvailableForRender &&
+        renderSuscriptionTable(groupBy(careerCourses, "nivel"))}
     </Fragment>
   );
 };
