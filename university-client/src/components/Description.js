@@ -17,7 +17,7 @@ const Description = (props) => {
         );
       }
       return (
-        <Row>
+        <Row key={index}>
           <Col className={styles.textFiller}></Col>
           <Col className={`d-flex ${styles.text}`} style={{ flexGrow: "3" }}>
             <p>{part}</p>

@@ -12,7 +12,6 @@ const ids = [
   459, 460, 496, 498, 499, 500, 501, 502, 514, 515, 516, 517, 518, 519, 531,
   532, 533, 534, 535, 536,
 ];
-
 const contenido = fs.readFileSync("./input.txt", "utf-8").split("\n");
 
 let output1 =
@@ -23,7 +22,7 @@ let output1 =
         index === 0 ? "" : ","
       }(${id}, "primera actividad", "${contenido}", '2022-02-10 20:16:06')\n`;
     })
-    .join("") +
+    .join("\n") +
   ";";
 
 let output2 =
@@ -34,7 +33,7 @@ let output2 =
         index === 0 ? "" : ","
       }(${id}, "trabajo con calificacion 1", "${contenido}", '2022-02-10 20:16:06', '2022-03-10 20:16:06', 10.0)\n`;
     })
-    .join("") +
+    .join("\n") +
   ";";
 
 fs.writeFileSync("output1.sql", output1);

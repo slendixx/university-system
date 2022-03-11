@@ -12,14 +12,18 @@ const ActivityDashboard = (props) => {
   };
 
   const renderActivities = (activities) => {
-    return activities.map((activity) => {
+    return activities.map((activity, index) => {
       return (
         <Col
-          key={activity.id}
+          key={index}
           className="d-flex justify-content-center"
           style={{ flexBasis: "33.33%" }}
         >
-          <Card className="my-3" style={{ width: "20rem", minHeight: "10rem" }}>
+          <Card
+            className="my-3"
+            key={index}
+            style={{ width: "20rem", minHeight: "10rem" }}
+          >
             <Card.Body>
               <Nav.Link
                 as={Link}

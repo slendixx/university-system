@@ -1,9 +1,11 @@
 import { Fragment, useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, Link } from "react-router-dom";
 import NavbarCampusVirtual from "../../layout/NavbarCampusVirtual";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Subtitle from "../../components/Subtitle";
 import ActivityDashboard from "../../components/ActivityDashboard";
+import Add from "../../svg/Add";
 import axios from "axios";
 import apiHost from "../../utils/apiHost";
 
@@ -40,6 +42,13 @@ const Actividades = () => {
   return (
     <Fragment>
       <NavbarCampusVirtual />
+      {
+        <Row>
+          <Col>
+            <Subtitle>{state.courseName}</Subtitle>
+          </Col>
+        </Row>
+      }
       <Row>
         <ActivityDashboard
           activities={activities}
@@ -47,6 +56,19 @@ const Actividades = () => {
           userRole={state.userRole}
         />
       </Row>
+      {state.userRole === "docente" && (
+        <Row>
+          <Col className="d-flex justify-content-center">
+            <Link
+              to={"/campus-virtual"}
+              className="d-flex align-items-center flex-column"
+            >
+              <Add width="4rem" />
+              <p style={{ display: "block" }}>Agregar Actividad</p>
+            </Link>
+          </Col>
+        </Row>
+      )}
     </Fragment>
   );
 };

@@ -5,17 +5,17 @@ import Nav from "react-bootstrap/Nav";
 
 const CareerDashboard = (props) => {
   const renderCareers = (courses) => {
-    return courses.map((course) => {
+    return courses.map((course, index) => {
       return (
         <Col
-          key={course.id}
+          key={index}
           className="d-flex justify-content-center"
           style={{ flexBasis: "33.33%" }}
         >
           <Nav.Link
             as={Link}
             to={props.linkTo.replace(":courseId", course["id asignatura"])}
-            state={{ userRole: props.userRole }}
+            state={{ userRole: props.userRole, courseName: course.asignatura }}
           >
             <Card
               className="my-5"

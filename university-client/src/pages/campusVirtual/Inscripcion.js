@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 import NavbarCampusVirtual from "../../layout/NavbarCampusVirtual";
 import Subtitle from "../../components/Subtitle";
+import Description from "../../components/Description";
 import SuscriptionTable from "../../components/SuscriptionTable";
 import groupBy from "../../utils/groupBy";
 
@@ -155,10 +156,16 @@ const Inscripcion = () => {
 
   const coursesAvailableForRender = careerCourses.length !== 0;
 
-  //TODO sepparate courses by level, like on the career details page
   return (
     <Fragment>
       <NavbarCampusVirtual />
+      {userData.role !== "alumno" && (
+        <Row className="my-5">
+          <Col>
+            <Description descriptionRaw="El sistema de autogestión es para para uso exclusivo de los alumnos de la institución.{br}" />
+          </Col>
+        </Row>
+      )}
       <Row>
         {userData.career !== null && <Subtitle>{userData.career}</Subtitle>}
       </Row>

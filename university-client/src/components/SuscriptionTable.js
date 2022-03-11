@@ -6,7 +6,6 @@ const SuscriptionTable = (props) => {
     props.actionHandler(actionInfo, event);
   };
 
-  //TODO stylize table
   const renderCourses = (courses, alreadySubscribedIds) => {
     return courses.map((course, index) => {
       const actionLink = alreadySubscribedIds.includes(
