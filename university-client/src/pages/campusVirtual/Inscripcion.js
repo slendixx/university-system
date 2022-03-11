@@ -93,7 +93,8 @@ const Inscripcion = () => {
             );
           }
           fetchUserData();
-          fetchCareerCourses();
+          fetchCareerCourses(); //this fetch was added in order to prevent an issue where a whole new set of table rows would be added to the tables when the user data was fetched
+          //TODO find out if there's a way to avoid the screen flickering on course subscrition/unsubscription
         })
         .catch((error) => {
           console.log(error.response);

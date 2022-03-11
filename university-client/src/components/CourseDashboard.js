@@ -15,6 +15,7 @@ const CareerDashboard = (props) => {
           <Nav.Link
             as={Link}
             to={props.linkTo.replace(":courseId", course["id asignatura"])}
+            state={{ userRole: props.userRole }}
           >
             <Card
               className="my-5"

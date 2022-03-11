@@ -10,6 +10,7 @@ import Logout from "./pages/Logout";
 import CheckLogin from "./auth/CheckLogin";
 import InicioCampusVirtual from "./pages/campusVirtual/InicioCampusVirtual";
 import Asignaturas from "./pages/campusVirtual/Asignaturas";
+import Actividades from "./pages/campusVirtual/Actividades";
 import DetallesActividad from "./pages/campusVirtual/DetallesActividad";
 import Inscripcion from "./pages/campusVirtual/Inscripcion";
 import Calificaciones from "./pages/campusVirtual/Calificaciones";
@@ -43,21 +44,15 @@ function App() {
         }
       />
       <Route
-        path="/campus-virtual/asignaturas/:courseId"
+        path="/campus-virtual/asignaturas/:courseId/actividades"
         element={
           <CheckLogin redirectRoute={"/login"}>
-            <Asignaturas />
+            <Actividades />
           </CheckLogin>
         }
       />
       <Route
-        path="/campus-virtual/asignaturas/:courseId/detalles-actividad"
-        element={
-          <Navigate replace to="/campus-virtual/asignaturas/:courseId" />
-        }
-      />
-      <Route
-        path="/campus-virtual/asignaturas/:courseId/detalles-actividad/:id"
+        path="/campus-virtual/asignaturas/:courseId/actividades/:activityId"
         element={
           <CheckLogin redirectRoute={"/login"}>
             <DetallesActividad />

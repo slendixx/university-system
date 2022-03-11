@@ -10,8 +10,9 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Subtitle from "../components/Subtitle";
 import CoursesAccordion from "../components/CoursesAccordion";
+import Description from "../components/Description";
 
-const DetallesCarrera = (props) => {
+const DetallesCarrera = () => {
   const location = useLocation(); //We use this hook to pass props through React Router's Link element
   const { career } = location.state;
   const [courses, setCourses] = useState([]);
@@ -36,29 +37,6 @@ const DetallesCarrera = (props) => {
 
     getCourses(career.id);
   }, [career]);
-  const renderDescription = (descriptionRaw) => {
-    const descriptionParts = descriptionRaw.split("{br}");
-    return descriptionParts.map((part, index) => {
-      if (part.includes("{subtitle}")) {
-        return (
-          <Row key={index}>
-            <Col>
-              <Subtitle>{part.replace("{subtitle}", "")}</Subtitle>
-            </Col>
-          </Row>
-        );
-      }
-      return (
-        <Row>
-          <Col className={styles.textFiller}></Col>
-          <Col className={`d-flex ${styles.text}`} style={{ flexGrow: "3" }}>
-            <p>{part}</p>
-          </Col>
-          <Col className={styles.textFiller}></Col>
-        </Row>
-      );
-    });
-  };
 
   return (
     <Fragment>
@@ -76,7 +54,7 @@ const DetallesCarrera = (props) => {
           </Link>
         </Col>
       </Row>
-      {renderDescription(career.descripcion)}
+      {<Description descriptionRaw={career.descripcion} />}
       <Row>
         <Col>
           <Subtitle>Plan de Estudios</Subtitle>

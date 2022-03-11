@@ -2,12 +2,12 @@ import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import apiHost from "../../utils/apiHost";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import NavbarCampusVirtual from "../../layout/NavbarCampusVirtual";
 import CourseDashboard from "../../components/CourseDashboard";
 import Subtitle from "../../components/Subtitle";
 
 const Asignaturas = () => {
+  const [userRole, setUserRole] = useState("alumno");
   const [courses, setCourses] = useState([]);
   const [userCareer, setUserCareer] = useState("");
 
@@ -19,6 +19,7 @@ const Asignaturas = () => {
       .then((response) => {
         const userData = response.data.data.results[0];
         if (userData.career) setUserCareer(userData.career);
+        setUserRole(userData.role);
         setCourses((oldState) => {
           return [...oldState, ...userData.courses];
         });
@@ -34,7 +35,8 @@ const Asignaturas = () => {
       <Row>
         <CourseDashboard
           courses={courses}
-          linkTo="/campus-virtual/asignaturas/:courseId"
+          linkTo="/campus-virtual/asignaturas/:courseId/actividades"
+          userRole={userRole}
         />
       </Row>
     </Fragment>
