@@ -6,6 +6,7 @@ module.exports.select = async ({
     getCoursesFor,
     parentId,
     getActivities,
+    getGrades,
 }) => {
     let sql;
     const values = [];
@@ -17,11 +18,15 @@ module.exports.select = async ({
     if (getCoursesFor === 'user')
         sql =
             'SELECT `id usuario`, `id asignatura`, `asignatura` FROM user_courses WHERE `id usuario` = ? ';
+    if (getGrades)
+        sql =
+            'SELECT `id_actividad`, `titulo`, `calificacion`, `calificacion_maxima`,`asignatura`, `id_asignatura` FROM user_grades WHERE `id_alumno` = ? ';
     if (id) {
         sql += 'AND `id asignatura` = ?;';
         values.push(id);
     }
 
+    console.log(sql);
     const result = {};
     try {
         result.rows = await db.queryAsync(db.getConnection(), sql, values);
@@ -34,7 +39,6 @@ module.exports.select = async ({
 
     const activities = await activity.select(null, id);
 
-    console.log(activities);
     result.rows[0].activities = activities.rows;
 
     return result;

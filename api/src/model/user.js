@@ -129,7 +129,7 @@ module.exports.insert = async (data) => {
     return result;
 };
 
-module.exports.select = async (id, getCourses) => {
+module.exports.select = async ({ id, getCourses, getGrades }) => {
     //TODO do not return sensitive data. wtf was I thinking
     let sql = 'SELECT * FROM user_full';
     if (id) sql += ' WHERE id = ?;';
@@ -156,6 +156,7 @@ module.exports.select = async (id, getCourses) => {
         id: null,
         getCoursesFor: 'user',
         parentId: id,
+        getGrades,
     });
     result.rows[0].courses = courses.rows;
 
@@ -175,4 +176,3 @@ module.exports.findOne = async (email) => {
     }
     return result;
 };
-

@@ -23,12 +23,10 @@ const NIVELES = [
 const Inscripcion = () => {
   const [userData, setUserData] = useState({});
   const [careerCourses, setCareerCourses] = useState([]);
-  const [reloadContent, setReloadContent] = useState(false);
   const [subscriptionInfo, setSubscriptionInfo] = useState(null);
   const [subscriptionMessage, setSubscriptionMessage] = useState("");
   const [subscriptionMessageType, setSubscriptionMessageType] =
     useState("success");
-  const pathname = useLocation().pathname;
 
   const fetchUserData = () => {
     //TODO should add checks to see if localStorage.jwt & localStorage.userId are defined before performing request to api
@@ -188,7 +186,7 @@ const Inscripcion = () => {
 };
 
 export default Inscripcion;
-
+//TODO add propper width and media queries to the subscription table
 /*
 <SuscriptionTable
               courses={careerCourses}

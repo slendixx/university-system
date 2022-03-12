@@ -7,15 +7,22 @@ const course = require('../model/course');
 module.exports.getAll = catchAsync(async (req, res, next) => {
     let result;
     const getCoursesFor = req.body.getCoursesFor;
+    const getGrades = req.query.grades !== undefined;
+
     if (getCoursesFor === 'career')
         result = await career.select({
             id: Number(req.params.careerId),
             getCourses: true,
             filter: null,
+            getGrades,
         });
 
     if (getCoursesFor === 'user')
-        result = await user.select(Number(req.params.userId), true);
+        result = await user.select({
+            id: Number(req.params.userId),
+            getCourses: true,
+            getGrades,
+        });
 
     if (result.rows.length === 0)
         return next(new AppError(result.message, 404));
@@ -40,7 +47,10 @@ module.exports.getById = catchAsync(async (req, res, next) => {
         });
 
     if (getCoursesFor === 'user')
-        result = await user.select(Number(req.params.userId), true);
+        result = await user.select({
+            id: Number(req.params.userId),
+            getCourses: true,
+        });
 
     if (result.rows.length === 0)
         return next(new AppError(result.message, 404));
@@ -61,6 +71,7 @@ module.exports.getById = catchAsync(async (req, res, next) => {
         });
 });
 module.exports.add = catchAsync(async (req, res, next) => {
+    //TODO check if the request comes from the user resource, otherwise this is semantically incorrect
     const id = Number(req.params.userId);
     const inputData = {
         id,

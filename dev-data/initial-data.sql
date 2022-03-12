@@ -1041,3 +1041,12 @@ SET descripcion = "{subtitle}Perfil profesional{br}
  - Participar activamente en equipos de trabajo para la planificación y ejecución de proyectos educativos institucionales de los Niveles de Educación Secundaria y Superior.{br}
  - Colaborar con los equipos interdisciplinarios de las instituciones educativas en lo vinculante a la administración y la economía institucional."
 WHERE id = 10;
+
+INSERT INTO calificacion_alumno (id_alumno, id_actividad, valor, id_asignatura) VALUES
+(28,980,8.0,273),
+(28,981,7.0,274),
+(28,982,6.0,275),
+(28,985,10.0,278),
+(28,986,8.0,279),
+(28,987,5.0,280),
+(28,989,7.5,282);

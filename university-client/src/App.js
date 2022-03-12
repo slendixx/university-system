@@ -75,7 +75,7 @@ function App() {
         path="/campus-virtual/autogestion/calificaciones"
         element={
           <CheckLogin redirectRoute={"/login"}>
-            <Inscripcion />
+            <Calificaciones />
           </CheckLogin>
         }
       />
