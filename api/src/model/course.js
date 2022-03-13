@@ -26,7 +26,6 @@ module.exports.select = async ({
         values.push(id);
     }
 
-    console.log(sql);
     const result = {};
     try {
         result.rows = await db.queryAsync(db.getConnection(), sql, values);

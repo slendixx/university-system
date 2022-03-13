@@ -4,7 +4,6 @@ import Table from "react-bootstrap/Table";
 const GradeDashboard = (props) => {
   const renderGradeTables = (gradesByCourse) => {
     return gradesByCourse.map((courseGrades, index) => {
-      console.log(courseGrades);
       return (
         <Fragment key={index}>
           <Subtitle>{courseGrades[0].asignatura}</Subtitle>
