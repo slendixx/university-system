@@ -14,6 +14,7 @@ import Actividades from "./pages/campusVirtual/Actividades";
 import DetallesActividad from "./pages/campusVirtual/DetallesActividad";
 import Inscripcion from "./pages/campusVirtual/Inscripcion";
 import Calificaciones from "./pages/campusVirtual/Calificaciones";
+import CrearModificarActividades from "./pages/campusVirtual/CrearModificarActividades";
 
 function App() {
   return (
@@ -56,6 +57,14 @@ function App() {
         element={
           <CheckLogin redirectRoute={"/login"}>
             <DetallesActividad />
+          </CheckLogin>
+        }
+      />
+      <Route
+        path="/campus-virtual/asignaturas/:courseId/actividades/crear-modificar"
+        element={
+          <CheckLogin redirectRoute={"/login"}>
+            <CrearModificarActividades />
           </CheckLogin>
         }
       />

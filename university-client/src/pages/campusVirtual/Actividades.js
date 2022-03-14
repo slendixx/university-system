@@ -60,7 +60,10 @@ const Actividades = () => {
         <Row>
           <Col className="d-flex justify-content-center">
             <Link
-              to={"/campus-virtual"}
+              to={
+                "/campus-virtual/asignaturas/:courseId/actividades/crear-modificar"
+              }
+              state={{}}
               className="d-flex align-items-center flex-column"
             >
               <Add width="4rem" />

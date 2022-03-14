@@ -1,0 +1,28 @@
+.form {
+  border: 0.1rem lightgray solid;
+  border-radius: 1rem;
+  width: 50%;
+  padding: 1rem;
+}
+@media (max-width: 900px) {
+  .form {
+    width: 75%;
+  }
+}
+
+@media (max-width: 600px) {
+  .form {
+    width: 100%;
+    margin: 0 2rem;
+  }
+}
+.icon {
+  height: 2rem;
+}
+.icon-margin {
+  display: block;
+  margin-top: 1rem;
+}
+.icon:hover {
+  color: blue;
+}
