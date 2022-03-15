@@ -153,7 +153,6 @@ const Inscripcion = () => {
     });
 
   const coursesAvailableForRender = careerCourses.length !== 0;
-  if (coursesAvailableForRender) console.log(careerCourses);
 
   return (
     <Fragment>

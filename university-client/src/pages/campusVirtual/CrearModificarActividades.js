@@ -1,10 +1,10 @@
+//TODO Fix The datetime-local input
 import { Fragment, useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./crearModificarActividades.module.css";
 import NavbarCampusVirtual from "../../layout/NavbarCampusVirtual";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Subtitle from "../../components/Subtitle";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
@@ -22,21 +22,43 @@ const CrearModificarActividades = (props) => {
   const [limitDate, setLimitDate] = useState("");
   const [inputData, setInputData] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [deleteActivity, setDeleteActivity] = useState(false);
   const { state } = useLocation();
   const { courseId } = useParams();
-
+  const navigate = useNavigate();
   const getDescriptionParagraphs = (descriptionRaw) => {
     return descriptionRaw.split("{br}");
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     //TODO gotta do some validations on the activity creation/updating form
+    //complete user data
     const input = {
       title,
       paragraphs,
       maxGrade: hasGrade ? maxGrade : null,
-      limitDate: hasLimitDate ? limitDate : null,
+      limitDate: null,
     };
+    //limitDate: hasLimitDate ? limitDate : null,
+    if (hasLimitDate) {
+      const [datePart] = limitDate.split("T");
+      const [limitYear, limitMonth, limitDay] = datePart
+        .split("-")
+        .map((element) => Number(element));
+      const [, limitTime] = limitDate.split("T");
+      const [limitHours, limitMinutes] = limitTime
+        .split(":")
+        .map((element) => Number(element));
+
+      input.limitDate = {
+        limitDay,
+        limitMonth,
+        limitYear,
+        limitHours,
+        limitMinutes,
+      };
+    }
+
     setInputData((oldState) => {
       return { ...oldState, ...input };
     });
@@ -100,8 +122,14 @@ const CrearModificarActividades = (props) => {
   const handleLimitDateChange = (event) => {
     setLimitDate(event.target.value);
   };
-
+  const handleDeleteActivity = () => {
+    setDeleteActivity(true);
+    setFormSubmitted(true);
+  };
+  //TODO refactor all side effects like this. just put them onto a function
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     if (!formSubmitted) return;
     if (activityId === null)
       axios
@@ -111,22 +139,46 @@ const CrearModificarActividades = (props) => {
           },
         })
         .then((response) => {
-          console.log(response);
+          navigate(-1);
         })
         .catch((error) => {
           console.log(error.response);
         });
-    if (activityId !== null)
-      axios.patch(
-        apiHost + `courses/${courseId}/activities/${activityId}`,
-        inputData,
-        {
+    if (activityId !== null && !deleteActivity)
+      axios
+        .patch(
+          apiHost + `courses/${courseId}/activities/${activityId}`,
+          inputData,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+          }
+        )
+        .then((response) => {
+          navigate(-1);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    if (activityId !== null && deleteActivity) {
+      axios
+        .delete(apiHost + `courses/${courseId}/activities/${activityId}`, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("jwt"),
           },
-        }
-      );
-  }, [formSubmitted, courseId, inputData, activityId]);
+          signal,
+        })
+        .then((response) => {
+          navigate(-1);
+        })
+        .catch((error) => {
+          console.log(error.response);
+          if (axios.isCancel()) console.log("sucessfully aborted");
+        });
+    }
+    return () => controller.abort();
+  }, [formSubmitted, courseId, inputData, activityId, deleteActivity]);
 
   if (state.activity) {
     if (activityId === null) setActivityId(state.activity.id_actividad);
@@ -148,7 +200,6 @@ const CrearModificarActividades = (props) => {
       setLimitDate(state.activity.fecha_limite.slice(0, 16));
     }
   }
-  if (inputData !== null) console.log(inputData);
 
   return (
     <Fragment>
@@ -209,9 +260,20 @@ const CrearModificarActividades = (props) => {
                 />
               </Form.Group>
             )}
-            <Button className="mt-3" type="submit">
-              Crear Actividad
-            </Button>
+            <Form.Group className="mt-3 d-flex flex-row justify-content-between">
+              <Button type="submit">
+                {state.activity ? "Editar Actividad" : "Crear Actividad"}
+              </Button>
+              {state.activity && (
+                <Button
+                  variant="warning"
+                  type="submit"
+                  onClick={handleDeleteActivity}
+                >
+                  Eliminar Actividad
+                </Button>
+              )}
+            </Form.Group>
           </Form>
         </Col>
       </Row>

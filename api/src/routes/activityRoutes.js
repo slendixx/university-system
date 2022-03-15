@@ -32,7 +32,8 @@ router
     )
     .delete(
         passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin', 'docente'])
+        restrictTo(['admin', 'docente']),
+        controller.delete
     );
 
 module.exports = router;

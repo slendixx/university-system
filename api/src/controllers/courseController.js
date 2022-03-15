@@ -94,7 +94,7 @@ module.exports.add = catchAsync(async (req, res, next) => {
 });
 
 module.exports.delete = catchAsync(async (req, res, next) => {
-    const id = Number(req.params.userId); //TODO investigate if getting the user id from params instead of req.user is causing problems
+    const id = Number(req.params.userId);
     const courseId = Number(req.params.courseId);
     const inputData = {
         id,

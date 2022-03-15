@@ -26,7 +26,7 @@ router
     )
     .patch(
         passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin', 'docente'])
+        restrictTo(['admin'])
     )
     .delete(
         passport.authenticate('jwt', { session: false }),
