@@ -7,6 +7,7 @@ const userRouter = require('./routes/userRoutes');
 const careerRouter = require('./routes/careerRoutes');
 const apikeyRouter = require('./routes/apikeyRoutes');
 const authRouter = require('./routes/authRoutes');
+const courseRouter = require('./routes/courseRoutes');
 const authenticateApikey = require('./auth/apikeys').authenticate;
 
 const app = express();
@@ -39,6 +40,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/careers', careerRouter);
 app.use('/api/v1/apikeys', apikeyRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/courses', courseRouter);
 
 //handle 404 errors: unhandled routes
 app.all('*', (req, res, next) => {

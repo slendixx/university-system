@@ -54,16 +54,19 @@ const Actividades = () => {
           activities={activities}
           linkTo={pathname + "/:activityId"}
           userRole={state.userRole}
+          careerId={state.careerId}
+          courseId={courseId}
         />
       </Row>
       {state.userRole === "docente" && (
         <Row>
           <Col className="d-flex justify-content-center">
             <Link
-              to={
-                "/campus-virtual/asignaturas/:courseId/actividades/crear-modificar"
-              }
-              state={{}}
+              to={"/campus-virtual/asignaturas/:courseId/actividades/crear-modificar".replace(
+                ":courseId",
+                courseId
+              )}
+              state={{ courseId }}
               className="d-flex align-items-center flex-column"
             >
               <Add width="4rem" />

@@ -17,12 +17,12 @@
   }
 }
 .icon {
-  height: 2rem;
-}
-.icon-margin {
   display: block;
-  margin-top: 1rem;
+  margin-left: 1rem;
 }
 .icon:hover {
-  color: blue;
+  color: #0d6efd;
+}
+.icon-margin {
+  margin-top: 1rem;
 }

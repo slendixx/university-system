@@ -14,7 +14,8 @@ router
     )
     .post(
         passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin', 'docente'])
+        restrictTo(['admin', 'docente']),
+        controller.create
     );
 
 router
@@ -26,7 +27,8 @@ router
     )
     .patch(
         passport.authenticate('jwt', { session: false }),
-        restrictTo(['admin', 'docente'])
+        restrictTo(['admin', 'docente']),
+        controller.update
     )
     .delete(
         passport.authenticate('jwt', { session: false }),

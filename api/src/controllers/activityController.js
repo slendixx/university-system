@@ -48,3 +48,12 @@ module.exports.getById = catchAsync(async (req, res, next) => {
             },
         });
 });
+
+module.exports.create = catchAsync(async (req, res, next) => {
+    console.log(req.body);
+});
+
+module.exports.update = catchAsync(async (req, res, next) => {
+    console.log({ activityId: req.params.activityId });
+    console.log(req.body);
+});

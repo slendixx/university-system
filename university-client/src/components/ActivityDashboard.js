@@ -45,7 +45,14 @@ const ActivityDashboard = (props) => {
                 )}
                 {props.userRole === "docente" && (
                   <ListGroup.Item className="d-flex justify-content-between">
-                    <Nav.Link>
+                    <Nav.Link
+                      as={Link}
+                      to={"/campus-virtual/asignaturas/:courseId/actividades/crear-modificar".replace(
+                        ":courseId",
+                        props.courseId
+                      )}
+                      state={{ activity }}
+                    >
                       <Pencil width="2rem" />
                     </Nav.Link>
                     <Nav.Link>
