@@ -105,7 +105,10 @@ module.exports.delete = catchAsync(async (req, res, next) => {
         parentId: courseId,
         id: activityId,
     });
-    res.status(204).json({
+
+    if (!result.ok) return next(new AppError(error.message, 500));
+
+    res.status(200).json({
         ok: true,
         data: {
             status: 'Activity deleted successfully',

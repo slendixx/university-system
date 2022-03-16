@@ -3,10 +3,12 @@ const controller = require('../controllers/courseController');
 const passport = require('passport');
 const { restrictTo } = require('../controllers/authController');
 const activityRouter = require('./activityRoutes');
+const studentRouter = require('./studentRoutes');
 
 const router = express.Router({ mergeParams: true });
 
 router.use('/:courseId/activities', activityRouter);
+router.use('/students', studentRouter);
 
 router
     .route('/')

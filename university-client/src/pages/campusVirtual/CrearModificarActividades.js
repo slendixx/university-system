@@ -178,7 +178,14 @@ const CrearModificarActividades = (props) => {
         });
     }
     return () => controller.abort();
-  }, [formSubmitted, courseId, inputData, activityId, deleteActivity]);
+  }, [
+    formSubmitted,
+    courseId,
+    inputData,
+    activityId,
+    deleteActivity,
+    navigate,
+  ]);
 
   if (state.activity) {
     if (activityId === null) setActivityId(state.activity.id_actividad);

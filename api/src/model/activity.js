@@ -198,7 +198,11 @@ module.exports.update = async ({ parentId, data, id }) => {
 
 module.exports.delete = async ({ id }) => {
     const sql = 'DELETE FROM actividad WHERE id = ?';
-    const result = {};
+    const result = {
+        ok: false,
+    };
+
+
     try {
         result.rows = await db.queryAsync(db.getConnection(), sql, id);
         result.ok = true;

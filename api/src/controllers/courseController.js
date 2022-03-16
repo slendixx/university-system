@@ -35,6 +35,8 @@ module.exports.getAll = catchAsync(async (req, res, next) => {
     });
 });
 
+const getStudentGrades = catchAsync(async (req, res, next) => {});
+
 module.exports.getById = catchAsync(async (req, res, next) => {
     const courseId = Number(req.params.courseId);
     let result;
