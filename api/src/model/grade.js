@@ -7,9 +7,9 @@ module.exports.select = async ({ userId, id }) => {
     };
     const userCoursesSql =
         'SELECT `id asignatura` AS id_asignatura FROM user_courses WHERE `id usuario` = ?';
-    let studentGradesSql =
-        'SELECT * FROM user_grades_v2 WHERE id_asignatura IN ';
+    let studentGradesSql = 'SELECT * FROM user_grades WHERE id_asignatura IN ';
     let studentGrades;
+    let toBeGradedStudents;
 
     const connection = db.getConnection();
     try {
@@ -34,11 +34,21 @@ module.exports.select = async ({ userId, id }) => {
             studentGradesSql,
             courseIds
         );
+        const toBeGradedStudentsSql = studentGradesSql.replace(
+            'user_grades',
+            'to_be_graded_users'
+        );
+        toBeGradedStudents = await db.queryAsync(
+            connection,
+            toBeGradedStudentsSql,
+            courseIds
+        );
     } catch (error) {
         result.message = error;
         result.ok = false;
     }
-    result.rows = await formatStudentGradesV2(studentGrades);
+    const resultData = [...studentGrades, ...toBeGradedStudents];
+    result.rows = await formatStudentGradesV2(resultData);
 
     result.ok = true;
     return result;
