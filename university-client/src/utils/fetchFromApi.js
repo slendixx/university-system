@@ -1,4 +1,4 @@
-const APIURL = "http://127.0.0.1:3000/api/v1/";
+import APIURL from "./apiHost";
 
 //TODO reimplement this with axios
 const fetchFromApi = ({ apiResource, method, body }) => {
