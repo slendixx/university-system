@@ -7,7 +7,8 @@ module.exports.select = async ({ userId, id }) => {
     };
     const userCoursesSql =
         'SELECT `id asignatura` AS id_asignatura FROM user_courses WHERE `id usuario` = ?';
-    let studentGradesSql = 'SELECT * FROM user_grades WHERE id_asignatura IN ';
+    let studentGradesSql =
+        'SELECT * FROM user_grades_v2 WHERE id_asignatura IN ';
     let studentGrades;
 
     const connection = db.getConnection();
