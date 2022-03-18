@@ -40,18 +40,10 @@ module.exports.select = async ({ userId, id }) => {
         result.ok = false;
     }
 
-    const nonGradedStudents = allStudentActivities.reduce((result, item) => {
-        const found = studentGrades.find((grade) => {
-            return (
-                grade.id_actividad === item.id_actividad &&
-                grade.id_alumno === item.id_alumno
-            );
-        });
-        if (!found) result.push(item);
-
-        return result;
-    }, []);
-    console.log(nonGradedStudents);
+    const nonGradedStudents = await filterNonGradedStudents(
+        allStudentActivities,
+        studentGrades
+    );
     const studentData = [...studentGrades, ...nonGradedStudents];
 
     result.rows = await formatStudentGradesV2(studentData);
@@ -82,6 +74,25 @@ const formatStudentGrades = (input) => {
     }, {});
 };
 */
+const filterNonGradedStudents = (
+    allStudentActivities,
+    gradedStudentActivities
+) => {
+    return new Promise((resolve, reject) => {
+        const resolveValue = allStudentActivities.reduce((result, item) => {
+            const found = gradedStudentActivities.find((grade) => {
+                return (
+                    grade.id_actividad === item.id_actividad &&
+                    grade.id_alumno === item.id_alumno
+                );
+            });
+            if (!found) result.push(item);
+
+            return result;
+        }, []);
+        resolve(resolveValue);
+    });
+};
 const formatStudentGradesV2 = (input) => {
     return new Promise((resolve, reject) => {
         let result = input.reduce((result, item) => {
