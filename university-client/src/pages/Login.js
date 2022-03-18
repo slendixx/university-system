@@ -25,7 +25,7 @@ const Login = (props) => {
     axios
       .post(apiHost + "auth/login", loginData)
       .then((response) => {
-        const { token, userId } = response.data.data;
+        const { token, userId, role } = response.data.data;
 
         setAuthError(false);
         setRedirect(true);
