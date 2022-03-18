@@ -9,7 +9,7 @@ module.exports.select = async ({ userId, id }) => {
         'SELECT `id asignatura` AS id_asignatura FROM user_courses WHERE `id usuario` = ?';
     let studentGradesSql = 'SELECT * FROM user_grades WHERE id_asignatura IN ';
     let studentGrades;
-    let toBeGradedStudents;
+    let allStudentActivities;
 
     const connection = db.getConnection();
     try {
@@ -22,33 +22,39 @@ module.exports.select = async ({ userId, id }) => {
             return course.id_asignatura;
         });
         //format sql query
-        studentGradesSql += `(${courseIds
-            .map(() => {
-                return '?,';
-            })
-            .join('')})`;
-        studentGradesSql = studentGradesSql.replace('?,)', '?)');
+        studentGradesSql += generateSQLFieldPlaceholders(courseIds);
 
         studentGrades = await db.queryAsync(
             connection,
             studentGradesSql,
             courseIds
         );
-        const toBeGradedStudentsSql = studentGradesSql.replace(
-            'user_grades',
-            'to_be_graded_users'
-        );
-        toBeGradedStudents = await db.queryAsync(
+        allStudentActivities = await db.queryAsync(
             connection,
-            toBeGradedStudentsSql,
+            'SELECT id_alumno, id_asignatura, asignatura, id_actividad, titulo, calificacion_maxima FROM user_graded_activities WHERE id_asignatura IN ' +
+                generateSQLFieldPlaceholders(courseIds),
             courseIds
         );
     } catch (error) {
         result.message = error;
         result.ok = false;
     }
-    const resultData = [...studentGrades, ...toBeGradedStudents];
-    result.rows = await formatStudentGradesV2(resultData);
+
+    const nonGradedStudents = allStudentActivities.reduce((result, item) => {
+        const found = studentGrades.find((grade) => {
+            return (
+                grade.id_actividad === item.id_actividad &&
+                grade.id_alumno === item.id_alumno
+            );
+        });
+        if (!found) result.push(item);
+
+        return result;
+    }, []);
+    console.log(nonGradedStudents);
+    const studentData = [...studentGrades, ...nonGradedStudents];
+
+    result.rows = await formatStudentGradesV2(studentData);
 
     result.ok = true;
     return result;
@@ -140,7 +146,7 @@ const formatStudentGradesV2 = (input) => {
                             calificaciones: activity.map((grade) => {
                                 return {
                                     id_alumno: grade.id_alumno,
-                                    calificacion: grade.calificacion,
+                                    calificacion: grade.calificacion || null,
                                 };
                             }),
                         };
@@ -149,4 +155,17 @@ const formatStudentGradesV2 = (input) => {
         });
         resolve(result);
     });
+};
+
+const generateSQLFieldPlaceholders = (list) => {
+    let result =
+        '(' +
+        list
+            .map(() => {
+                return '?,';
+            })
+            .join('') +
+        ')';
+    result = result.replace('?,)', '?)');
+    return result;
 };
