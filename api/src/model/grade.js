@@ -184,3 +184,7 @@ const generateSQLFieldPlaceholders = (list) => {
     result = result.replace('?,)', '?)');
     return result;
 };
+
+module.exports.insert = () => {};
+
+module.exports.update = () => {};

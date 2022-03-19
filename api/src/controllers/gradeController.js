@@ -18,4 +18,10 @@ module.exports.getAll = catchAsync(async (req, res, next) => {
     });
 });
 
-module.exports.create = catchAsync(async (req, res, next) => {});
+module.exports.create = catchAsync(async (req, res, next) => {
+    console.log(req.body);
+});
+
+module.exports.update = catchAsync(async (req, res, next) => {
+    console.log(req.body);
+});

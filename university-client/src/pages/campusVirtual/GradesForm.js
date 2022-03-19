@@ -22,7 +22,7 @@ const GradesForm = (props) => {
     });
     if (!found) {
       setModifiedRows((oldState) => {
-        return [...oldState, { ...newItem, newValue: true }];
+        return [...oldState, { ...newItem }];
       });
       return;
     }
@@ -39,6 +39,7 @@ const GradesForm = (props) => {
     event.preventDefault();
     const inputElement = event.target.elements[0];
     if (inputElement.value === "") return; //TODO Give propper feedback to tell the user the field can't be empty
+    //TODO validate grade values
     const gradeValue = Number(inputElement.value);
     const [userId, activityId] = inputElement.id.split(" ");
     const isNewGrade = inputElement.defaultValue === "";
@@ -81,14 +82,14 @@ const GradesForm = (props) => {
           apiHost +
             "users/:userId/courses/grades".replace(
               ":userId",
-              localStorage.getItem("userId"),
-              {
-                headers: {
-                  Authorization: "Bearer " + localStorage.getItem("jwt"),
-                },
-              }
+              localStorage.getItem("userId")
             ),
-          newValues
+          newValues,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+          }
         )
         .then((response) => {
           console.log(response);
@@ -101,12 +102,13 @@ const GradesForm = (props) => {
 
     if (updatedValues.length !== 0)
       axios
-        .update(
+        .patch(
           apiHost +
             "users/:userId/courses/grades".replace(
               ":userId",
               localStorage.getItem("userId")
             ),
+          updatedValues,
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("jwt"),

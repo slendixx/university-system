@@ -16,6 +16,11 @@ router
         passport.authenticate('jwt', { session: false }),
         restrictTo(['admin', 'docente']),
         controller.create
+    )
+    .patch(
+        passport.authenticate('jwt', { session: false }),
+        restrictTo(['admin', 'docente']),
+        controller.update
     );
 
 module.exports = router;
