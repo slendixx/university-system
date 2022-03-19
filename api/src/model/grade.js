@@ -2,6 +2,7 @@ const db = require('./dbConnection');
 
 module.exports.select = async ({ userId, id }) => {
     //TODO implement a version for a specific id
+    //TODO refactor the parameter userID into parentId
     const result = {
         ok: false,
     };
@@ -185,6 +186,62 @@ const generateSQLFieldPlaceholders = (list) => {
     return result;
 };
 
-module.exports.insert = () => {};
+module.exports.insert = async ({ data }) => {
+    const result = {
+        ok: false,
+        rows: [],
+    };
 
-module.exports.update = () => {};
+    //validate input
+    if (data.length === 0) {
+        result.message = 'No new values were provided';
+    }
+
+    const activityStudentExistSql =
+        'CALL activity_student_exist(?,?,?,@activityExists,@studentExists); SELECT @activityExists, @studentExists;';
+
+    const validationPromises = data.map((grade) => {
+        return db.queryAsync(db.getConnection(), activityStudentExistSql, [
+            grade.activityId,
+            grade.userId,
+            grade.gradeValue,
+        ]);
+    });
+
+    try {
+        const validationResponse = await Promise.all(validationPromises);
+        const validationCorrect = validationResponse.every((check, index) => {
+            const validationResults = check[1];
+            const activityExists = validationResults['@activityExists'] === 1;
+            const studentExists = validationResults['@studentExists'] === 1;
+            if (!activityExists)
+                result.message =
+                    'No activity found for the id: ' + data[index].activityId;
+            if (!studentExists)
+                result.message =
+                    'No student found for the id: ' + data[index].userId;
+            return activityExists && studentExists;
+        });
+
+        if (validationCorrect) {
+            return result;
+        }
+    } catch (error) {
+        console.log('got Here', error);
+    }
+
+    console.log('validation correct!');
+    /*
+    try {
+        result.rows = await db.queryAsync(connection);
+    } catch (error) {}
+
+    let sql =
+        'INSERT calificacion_alumno (id_alumno, id_actividad, valor) VALUES ?';
+        */
+    result.ok = true;
+    result.rows.push('abcd');
+    return result;
+};
+
+module.exports.update = ({ data }) => {};

@@ -64,5 +64,6 @@ module.exports.initConnection = () => {
         password: password,
         database: process.env.DB_DBNAME,
         insecureAuth: process.env.DB_INSECURE_AUTH,
+        multipleStatements: true,
     });
 };
