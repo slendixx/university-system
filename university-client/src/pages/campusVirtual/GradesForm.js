@@ -1,94 +1,201 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Alert from "react-bootstrap/Alert";
 import Form from "react-bootstrap/Form";
 import Subtitle from "../../components/Subtitle";
+import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import apiHost from "../../utils/apiHost";
+import axios from "axios";
 
 const GradesForm = (props) => {
+  const [formSubmited, setFormSubmited] = useState(false);
   const [modifiedRows, setModifiedRows] = useState([]);
 
   console.log(modifiedRows);
 
-  const handleGradeChange = (event) => {
-    event.preventDefault();
-    const inputElement = event.target.elements[0];
-    const [userId, activityId] = inputElement.id.split(" ");
-    const gradeValue = inputElement.value;
-    //TODO check if the row wasn't already modfied yet
+  const checkAlreadyModified = (modifiedRows, newItem) => {
+    const found = modifiedRows.find((row) => {
+      return (
+        row.userId === newItem.userId && row.activityId === newItem.activityId
+      );
+    });
+    if (!found) {
+      setModifiedRows((oldState) => {
+        return [...oldState, { ...newItem, newValue: true }];
+      });
+      return;
+    }
+
+    const foundIndex = modifiedRows.indexOf(found);
     setModifiedRows((oldState) => {
-      return [
-        ...oldState,
-        {
-          userId,
-          activityId,
-          gradeValue,
-        },
-      ];
+      const result = [...oldState];
+      result[foundIndex].gradeValue = newItem.gradeValue;
+      return result;
     });
   };
 
-  const renderGradesTables = (grades) => {
-    return grades.map((course, index) => {
-      return (
-        <Fragment key={index}>
-          <Row>
-            <Col>
-              <Subtitle>{course.asignatura}</Subtitle>
-            </Col>
-          </Row>
-          {course.actividades.map((activity, index) => {
-            return (
-              <Fragment key={index}>
-                <Row>
-                  <Col>
-                    <Subtitle classes={"sm"}>{activity.titulo}</Subtitle>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Table striped bordered hover>
-                      <thead>
-                        <tr>
-                          <th>Apellido</th>
-                          <th>Nombre</th>
-                          <th>Calificacion</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {activity.calificaciones.map((grade, index) => {
-                          return (
-                            <tr key={index}>
-                              <td>{grade.apellido}</td>
-                              <td>{grade.nombre}</td>
-                              <td>
-                                <Form onSubmit={handleGradeChange}>
-                                  <Form.Group
-                                    controlId={`${grade.id_alumno} ${activity.id_actividad}`}
-                                  >
-                                    <Form.Control
-                                      type="number"
-                                      defaultValue={grade.calificacion}
-                                      min="1"
-                                      max={activity.calificacion_maxima}
-                                    ></Form.Control>
-                                  </Form.Group>
-                                </Form>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </Table>
-                  </Col>
-                </Row>
-              </Fragment>
-            );
-          })}
-        </Fragment>
-      );
+  const handleGradeChange = (event) => {
+    event.preventDefault();
+    const inputElement = event.target.elements[0];
+    if (inputElement.value === "") return; //TODO Give propper feedback to tell the user the field can't be empty
+    const gradeValue = Number(inputElement.value);
+    const [userId, activityId] = inputElement.id.split(" ");
+    const isNewGrade = inputElement.defaultValue === "";
+
+    checkAlreadyModified(modifiedRows, {
+      userId,
+      activityId,
+      gradeValue,
+      isNewGrade,
     });
+  };
+
+  const filterByNewValues = (modifiedRows) => {
+    const result = [];
+
+    result.push(
+      modifiedRows.filter((row) => {
+        return row.isNewGrade === true;
+      })
+    );
+    result.push(
+      modifiedRows.filter((row) => {
+        return row.isNewGrade === false;
+      })
+    );
+
+    return result;
+  };
+
+  const handleSubmit = () => {
+    setFormSubmited(true);
+  };
+  const sendInputData = () => {
+    if (!formSubmited) return;
+
+    const [newValues, updatedValues] = filterByNewValues(modifiedRows);
+    if (newValues.length !== 0)
+      axios
+        .post(
+          apiHost +
+            "users/:userId/courses/grades".replace(
+              ":userId",
+              localStorage.getItem("userId"),
+              {
+                headers: {
+                  Authorization: "Bearer " + localStorage.getItem("jwt"),
+                },
+              }
+            ),
+          newValues
+        )
+        .then((response) => {
+          console.log(response);
+          setFormSubmited(false);
+          setModifiedRows([]);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+
+    if (updatedValues.length !== 0)
+      axios
+        .update(
+          apiHost +
+            "users/:userId/courses/grades".replace(
+              ":userId",
+              localStorage.getItem("userId")
+            ),
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          setFormSubmited(false);
+          setModifiedRows([]);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+  };
+
+  useEffect(sendInputData, [formSubmited, modifiedRows]);
+
+  const renderGradesTables = (grades) => {
+    return (
+      <Fragment>
+        <Row>
+          <Col className="d-flex justify-content-center">
+            <Button className="mt-5" onClick={handleSubmit}>
+              Guardar Los Cambios
+            </Button>
+          </Col>
+        </Row>
+        {grades.map((course, index) => {
+          return (
+            <Fragment key={index}>
+              <Row>
+                <Col>
+                  <Subtitle>{course.asignatura}</Subtitle>
+                </Col>
+              </Row>
+              {course.actividades.map((activity, index) => {
+                return (
+                  <Fragment key={index}>
+                    <Row>
+                      <Col>
+                        <Subtitle classes={"sm"}>{activity.titulo}</Subtitle>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <Table striped bordered hover>
+                          <thead>
+                            <tr>
+                              <th>Apellido</th>
+                              <th>Nombre</th>
+                              <th>Calificacion</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {activity.calificaciones.map((grade, index) => {
+                              return (
+                                <tr key={index}>
+                                  <td>{grade.apellido}</td>
+                                  <td>{grade.nombre}</td>
+                                  <td>
+                                    <Form onSubmit={handleGradeChange}>
+                                      <Form.Group
+                                        controlId={`${grade.id_alumno} ${activity.id_actividad}`}
+                                      >
+                                        <Form.Control
+                                          type="number"
+                                          defaultValue={grade.calificacion}
+                                          min="1"
+                                          max={activity.calificacion_maxima}
+                                        ></Form.Control>
+                                      </Form.Group>
+                                    </Form>
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </Table>
+                      </Col>
+                    </Row>
+                  </Fragment>
+                );
+              })}
+            </Fragment>
+          );
+        })}
+      </Fragment>
+    );
   };
 
   return renderGradesTables(props.grades);
