@@ -31,7 +31,7 @@ module.exports.select = async ({ userId, id }) => {
         );
         allStudentActivities = await db.queryAsync(
             connection,
-            'SELECT id_alumno, id_asignatura, asignatura, id_actividad, titulo, calificacion_maxima FROM user_graded_activities WHERE id_asignatura IN ' +
+            'SELECT id_alumno, apellido, nombre, id_asignatura, asignatura, id_actividad, titulo, calificacion_maxima FROM user_graded_activities WHERE id_asignatura IN ' +
                 generateSQLFieldPlaceholders(courseIds),
             courseIds
         );
@@ -115,6 +115,8 @@ const formatStudentGradesV2 = (input) => {
                 id_alumno: item.id_alumno,
                 calificacion: item.calificacion,
                 titulo: item.titulo,
+                apellido: item.apellido,
+                nombre: item.nombre,
             });
 
             // Return the result object for this iteration
@@ -144,7 +146,7 @@ const formatStudentGradesV2 = (input) => {
             return {
                 id_asignatura: course.id_asignatura,
                 asignatura: course.asignatura,
-                activitidades: course.actividades
+                actividades: course.actividades
                     .filter((activity) => {
                         return typeof activity === 'object';
                     })
@@ -158,6 +160,8 @@ const formatStudentGradesV2 = (input) => {
                                 return {
                                     id_alumno: grade.id_alumno,
                                     calificacion: grade.calificacion || null,
+                                    apellido: grade.apellido,
+                                    nombre: grade.nombre,
                                 };
                             }),
                         };
