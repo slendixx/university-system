@@ -55,8 +55,7 @@ module.exports.globalErrorHandler = (error, req, res, next) => {
     error.status = error.status || 'error';
 
     if (process.env.NODE_ENV === 'dev') return sendErrorDev(error, res);
-    if (error.message.includes('ER_DUP_ENTRY'))
-        error.message = 'The specified email is already in use.';
+    if (error.message.includes('ER_DUP_ENTRY')) error.isOperational = true;
     return sendErrorProd(error, res);
 };
 

@@ -12,8 +12,6 @@ const GradesForm = (props) => {
   const [formSubmited, setFormSubmited] = useState(false);
   const [modifiedRows, setModifiedRows] = useState([]);
 
-  console.log(modifiedRows);
-
   const checkAlreadyModified = (modifiedRows, newItem) => {
     const found = modifiedRows.find((row) => {
       return (
@@ -84,7 +82,7 @@ const GradesForm = (props) => {
               ":userId",
               localStorage.getItem("userId")
             ),
-          newValues,
+          { newValues },
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -92,11 +90,11 @@ const GradesForm = (props) => {
           }
         )
         .then((response) => {
-          console.log(response);
           setFormSubmited(false);
           setModifiedRows([]);
         })
         .catch((error) => {
+          setFormSubmited(false);
           console.log(error.response);
         });
 
@@ -108,7 +106,7 @@ const GradesForm = (props) => {
               ":userId",
               localStorage.getItem("userId")
             ),
-          updatedValues,
+          { updatedValues },
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -121,6 +119,7 @@ const GradesForm = (props) => {
           setModifiedRows([]);
         })
         .catch((error) => {
+          setFormSubmited(false);
           console.log(error.response);
         });
   };

@@ -186,62 +186,121 @@ const generateSQLFieldPlaceholders = (list) => {
     return result;
 };
 
-module.exports.insert = async ({ data }) => {
+module.exports.insert = async ({ data: newGrades }) => {
     const result = {
         ok: false,
-        rows: [],
     };
-
+    const connection = db.getConnection();
     //validate input
-    if (data.length === 0) {
+    if (newGrades.length === 0) {
         result.message = 'No new values were provided';
     }
-
+    //TODO Modify the stored procedure activity_student_exist to give a propper output for gradeValue validation
     const activityStudentExistSql =
         'CALL activity_student_exist(?,?,?,@activityExists,@studentExists); SELECT @activityExists, @studentExists;';
 
-    const validationPromises = data.map((grade) => {
-        return db.queryAsync(db.getConnection(), activityStudentExistSql, [
+    const validationPromises = newGrades.map((grade) => {
+        return db.queryAsync(connection, activityStudentExistSql, [
             grade.activityId,
             grade.userId,
             grade.gradeValue,
         ]);
     });
 
+    let validationResponse;
     try {
-        const validationResponse = await Promise.all(validationPromises);
-        const validationCorrect = validationResponse.every((check, index) => {
-            const validationResults = check[1];
-            const activityExists = validationResults['@activityExists'] === 1;
-            const studentExists = validationResults['@studentExists'] === 1;
-            if (!activityExists)
-                result.message =
-                    'No activity found for the id: ' + data[index].activityId;
-            if (!studentExists)
-                result.message =
-                    'No student found for the id: ' + data[index].userId;
-            return activityExists && studentExists;
-        });
-
-        if (validationCorrect) {
-            return result;
-        }
+        validationResponse = await Promise.all(validationPromises);
     } catch (error) {
-        console.log('got Here', error);
+        console.log(error);
+    }
+    const validationIsCorrect = validationResponse.every((check, index) => {
+        const [validationResults] = check[1];
+        const activityExists = validationResults['@activityExists'] === 1;
+        const studentExists = validationResults['@studentExists'] === 1;
+        if (!activityExists)
+            result.message =
+                'No activity found for the id: ' + newGrades[index].activityId;
+        if (!studentExists)
+            result.message =
+                'No student found for the id: ' + newGrades[index].userId;
+        return activityExists && studentExists;
+    });
+
+    if (!validationIsCorrect) {
+        return result;
     }
 
-    console.log('validation correct!');
-    /*
+    //perform insert
+    const insertGradesSql =
+        'INSERT INTO calificacion_alumno (id_actividad, id_alumno, valor) VALUES ?';
+    const values = formatValues(newGrades);
     try {
-        result.rows = await db.queryAsync(connection);
-    } catch (error) {}
+        result.rows = await db.queryAsync(connection, insertGradesSql, [
+            values,
+        ]);
+        result.ok = true;
+    } catch (error) {
+        result.message = error;
+    }
 
-    let sql =
-        'INSERT calificacion_alumno (id_alumno, id_actividad, valor) VALUES ?';
-        */
-    result.ok = true;
-    result.rows.push('abcd');
     return result;
 };
 
-module.exports.update = ({ data }) => {};
+const formatValues = (data) => {
+    return Object.values(data).map((item) => {
+        return [item.activityId, item.userId, item.gradeValue];
+    });
+};
+
+module.exports.update = async ({ data: updatedGrades }) => {
+    const result = {
+        ok: false,
+    };
+    const connection = db.getConnection();
+    //validate input
+    if (updatedGrades.length === 0) {
+        result.message = 'No new values were provided';
+    }
+
+    //Modidy gradeExists stored procedure to validate gradeValue
+    const gradeExistsSql = 'CALL gradeExists(?,?);';
+
+    const validationPromises = updatedGrades.map((grade) => {
+        return db.queryAsync(connection, gradeExistsSql, [
+            grade.activityId,
+            grade.userId,
+        ]);
+    });
+    let validationResponse;
+    try {
+        validationResponse = await Promise.all(validationPromises);
+    } catch (error) {
+        console.log(error);
+    }
+    const validationIsCorrect = validationResponse.every((check) => {
+        return check[0][0].exists === 1;
+    });
+
+    if (!validationIsCorrect) return result;
+
+    //perform update
+    const updateGradesSql =
+        'UPDATE calificacion_alumno SET id_actividad = ?, id_alumno = ?, valor = ?;';
+
+    const updatePromises = updatedGrades.map((grade) => {
+        return db.queryAsync(connection, updateGradesSql, [
+            grade.activityId,
+            grade.userId,
+            grade.gradeValue,
+        ]);
+    });
+    try {
+        result.rows = await Promise.all(updatePromises);
+        result.ok = true;
+    } catch (error) {
+        result.message = error;
+    }
+
+    console.log(result.rows);
+    return result;
+};
