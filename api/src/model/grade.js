@@ -256,19 +256,19 @@ module.exports.update = async ({ data: updatedGrades }) => {
     const result = {
         ok: false,
     };
-    const connection = db.getConnection();
+
     //validate input
     if (updatedGrades.length === 0) {
         result.message = 'No new values were provided';
     }
-
-    //Modidy gradeExists stored procedure to validate gradeValue
-    const gradeExistsSql = 'CALL gradeExists(?,?);';
-
+    const connection = db.getConnection();
+    const gradeIsValidSql =
+        'CALL gradeIsValid(?,?,?,@gradeExists,@gradeValueIsValid); SELECT @gradeExists, @gradeValueIsValid;';
     const validationPromises = updatedGrades.map((grade) => {
-        return db.queryAsync(connection, gradeExistsSql, [
+        return db.queryAsync(connection, gradeIsValidSql, [
             grade.activityId,
             grade.userId,
+            grade.gradeValue,
         ]);
     });
     let validationResponse;
@@ -277,21 +277,32 @@ module.exports.update = async ({ data: updatedGrades }) => {
     } catch (error) {
         console.log(error);
     }
-    const validationIsCorrect = validationResponse.every((check) => {
-        return check[0][0].exists === 1;
-    });
 
+    const validationIsCorrect = validationResponse.every((check, index) => {
+        const [validationResults] = check[1];
+        const gradeExists = validationResults['@gradeExists'] === 1;
+        const gradeValueIsValid = validationResults['@gradeValueIsValid'] === 1;
+        if (!gradeExists)
+            result.message =
+                'No grade found for the id: ' + updatedGrades[index].activityId;
+        if (!gradeValueIsValid)
+            result.message =
+                'Grade value: ' +
+                updatedGrades[index].userId +
+                ' is not valid.';
+        return gradeExists && gradeValueIsValid;
+    });
     if (!validationIsCorrect) return result;
 
     //perform update
     const updateGradesSql =
-        'UPDATE calificacion_alumno SET id_actividad = ?, id_alumno = ?, valor = ?;';
+        'UPDATE calificacion_alumno SET valor = ? WHERE id_actividad = ? AND id_alumno = ?';
 
     const updatePromises = updatedGrades.map((grade) => {
         return db.queryAsync(connection, updateGradesSql, [
+            grade.gradeValue,
             grade.activityId,
             grade.userId,
-            grade.gradeValue,
         ]);
     });
     try {
@@ -301,6 +312,5 @@ module.exports.update = async ({ data: updatedGrades }) => {
         result.message = error;
     }
 
-    console.log(result.rows);
     return result;
 };

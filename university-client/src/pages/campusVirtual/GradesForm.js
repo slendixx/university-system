@@ -2,6 +2,7 @@ import { useState, Fragment, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 import Subtitle from "../../components/Subtitle";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
@@ -11,6 +12,12 @@ import axios from "axios";
 const GradesForm = (props) => {
   const [formSubmited, setFormSubmited] = useState(false);
   const [modifiedRows, setModifiedRows] = useState([]);
+  const [gradesPostedMessage, setGradesPostedMessage] = useState("");
+  const [showGradesPosted, setShowGradesPosted] = useState(false);
+  const [postedMessageVariant, setPostedMessageVariant] = useState("primary");
+  const [gradesUpdatedMessage, setGradesUpdatedMessage] = useState("");
+  const [showGradesUpdated, setShowGradesUpdated] = useState(false);
+  const [UpdatedMessageVariant, setUpdatedMessageVariant] = useState("primary");
 
   const checkAlreadyModified = (modifiedRows, newItem) => {
     const found = modifiedRows.find((row) => {
@@ -92,9 +99,12 @@ const GradesForm = (props) => {
         .then((response) => {
           setFormSubmited(false);
           setModifiedRows([]);
+          setShowGradesPosted(true);
+          setGradesPostedMessage("");
         })
         .catch((error) => {
           setFormSubmited(false);
+          setShowGradesPosted(true);
           console.log(error.response);
         });
 
@@ -114,7 +124,6 @@ const GradesForm = (props) => {
           }
         )
         .then((response) => {
-          console.log(response);
           setFormSubmited(false);
           setModifiedRows([]);
         })
@@ -129,13 +138,6 @@ const GradesForm = (props) => {
   const renderGradesTables = (grades) => {
     return (
       <Fragment>
-        <Row>
-          <Col className="d-flex justify-content-center">
-            <Button className="mt-5" onClick={handleSubmit}>
-              Guardar Los Cambios
-            </Button>
-          </Col>
-        </Row>
         {grades.map((course, index) => {
           return (
             <Fragment key={index}>
@@ -199,7 +201,30 @@ const GradesForm = (props) => {
     );
   };
 
-  return renderGradesTables(props.grades);
+  return (
+    <Fragment>
+      <Row>
+        <Col className="d-flex justify-content-center">
+          <Button className="mt-5" onClick={handleSubmit}>
+            Guardar Los Cambios
+          </Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          {showGradesPosted && (
+            <Alert variant={postedMessageVariant}>{gradesPostedMessage}</Alert>
+          )}
+          {showGradesUpdated && (
+            <Alert variant={UpdatedMessageVariant}>
+              {gradesUpdatedMessage}
+            </Alert>
+          )}
+        </Col>
+      </Row>
+      {renderGradesTables(props.grades)}
+    </Fragment>
+  );
 };
 
 export default GradesForm;
