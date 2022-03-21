@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import apiHost from "../../utils/apiHost";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import CenterResponsive from "../../layout/CenterResponsive";
 import Alert from "react-bootstrap/Alert";
 import NavbarCampusVirtual from "../../layout/NavbarCampusVirtual";
 import Subtitle from "../../components/Subtitle";
@@ -132,16 +132,24 @@ const Inscripcion = () => {
   const renderSuscriptionTable = (coursesByLevel) => {
     return coursesByLevel.map((courses, index) => {
       return (
-        <Row key={index}>
-          <Col>
-            <Subtitle>{NIVELES[index]}</Subtitle>
-            <SuscriptionTable
-              courses={courses}
-              alreadySubscribedIds={alreadySubscribedIds}
-              actionHandler={handleAction}
-            />
-          </Col>
-        </Row>
+        <Fragment>
+          <Row key={index}>
+            <Col>
+              <Subtitle>{NIVELES[index]}</Subtitle>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="d-flex justify-content-center">
+              <CenterResponsive>
+                <SuscriptionTable
+                  courses={courses}
+                  alreadySubscribedIds={alreadySubscribedIds}
+                  actionHandler={handleAction}
+                />
+              </CenterResponsive>
+            </Col>
+          </Row>
+        </Fragment>
       );
     });
   };
@@ -159,8 +167,10 @@ const Inscripcion = () => {
       <NavbarCampusVirtual />
       {userData.role !== "alumno" && (
         <Row className="my-5">
-          <Col>
-            <Description descriptionRaw="El sistema de autogestión es para para uso exclusivo de los alumnos de la institución.{br}" />
+          <Col className="d-flex justify-content-center">
+            <CenterResponsive>
+              <Description descriptionRaw="El sistema de inscripciones es para para uso exclusivo de los alumnos de la institución.{br}" />
+            </CenterResponsive>
           </Col>
         </Row>
       )}

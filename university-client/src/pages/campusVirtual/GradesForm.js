@@ -1,6 +1,7 @@
 import { useState, Fragment, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import CenterResponsive from "../../layout/CenterResponsive";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Subtitle from "../../components/Subtitle";
@@ -80,8 +81,10 @@ const GradesForm = (props) => {
   const sendInputData = () => {
     if (!formSubmited) return;
 
+    setShowGradesPosted(false);
+    setShowGradesUpdated(false);
     const [newValues, updatedValues] = filterByNewValues(modifiedRows);
-    if (newValues.length !== 0)
+    if (newValues.length !== 0) {
       axios
         .post(
           apiHost +
@@ -100,15 +103,22 @@ const GradesForm = (props) => {
           setFormSubmited(false);
           setModifiedRows([]);
           setShowGradesPosted(true);
-          setGradesPostedMessage("");
+          setGradesPostedMessage(
+            "Las calificaciones se guardaron exitosamente"
+          );
+          setPostedMessageVariant("primary");
         })
         .catch((error) => {
           setFormSubmited(false);
           setShowGradesPosted(true);
+          setGradesPostedMessage(
+            "Ocurrió un error al intentar guardar las calificaciones"
+          );
+          setPostedMessageVariant("danger");
           console.log(error.response);
         });
-
-    if (updatedValues.length !== 0)
+    }
+    if (updatedValues.length !== 0) {
       axios
         .patch(
           apiHost +
@@ -126,11 +136,22 @@ const GradesForm = (props) => {
         .then((response) => {
           setFormSubmited(false);
           setModifiedRows([]);
+          setShowGradesUpdated(true);
+          setGradesUpdatedMessage(
+            "Las calificaciones se modificaron exitosamente"
+          );
+          setUpdatedMessageVariant("primary");
         })
         .catch((error) => {
           setFormSubmited(false);
+          setShowGradesUpdated(true);
+          setGradesUpdatedMessage(
+            "Ocurrió un error al intentar modificar las calificaciones"
+          );
+          setUpdatedMessageVariant("danger");
           console.log(error.response);
         });
+    }
   };
 
   useEffect(sendInputData, [formSubmited, modifiedRows]);
@@ -155,40 +176,42 @@ const GradesForm = (props) => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col>
-                        <Table striped bordered hover>
-                          <thead>
-                            <tr>
-                              <th>Apellido</th>
-                              <th>Nombre</th>
-                              <th>Calificacion</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {activity.calificaciones.map((grade, index) => {
-                              return (
-                                <tr key={index}>
-                                  <td>{grade.apellido}</td>
-                                  <td>{grade.nombre}</td>
-                                  <td>
-                                    <Form onSubmit={handleGradeChange}>
-                                      <Form.Group
-                                        controlId={`${grade.id_alumno} ${activity.id_actividad}`}
-                                      >
-                                        <Form.Control
-                                          type="number"
-                                          defaultValue={grade.calificacion}
-                                          min="1"
-                                          max={activity.calificacion_maxima}
-                                        ></Form.Control>
-                                      </Form.Group>
-                                    </Form>
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </Table>
+                      <Col className="d-flex justify-content-center">
+                        <CenterResponsive>
+                          <Table striped bordered hover>
+                            <thead>
+                              <tr>
+                                <th>Apellido</th>
+                                <th>Nombre</th>
+                                <th>Calificacion</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {activity.calificaciones.map((grade, index) => {
+                                return (
+                                  <tr key={index}>
+                                    <td>{grade.apellido}</td>
+                                    <td>{grade.nombre}</td>
+                                    <td>
+                                      <Form onSubmit={handleGradeChange}>
+                                        <Form.Group
+                                          controlId={`${grade.id_alumno} ${activity.id_actividad}`}
+                                        >
+                                          <Form.Control
+                                            type="number"
+                                            defaultValue={grade.calificacion}
+                                            min="1"
+                                            max={activity.calificacion_maxima}
+                                          ></Form.Control>
+                                        </Form.Group>
+                                      </Form>
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </Table>
+                        </CenterResponsive>
                       </Col>
                     </Row>
                   </Fragment>
@@ -205,21 +228,25 @@ const GradesForm = (props) => {
     <Fragment>
       <Row>
         <Col className="d-flex justify-content-center">
-          <Button className="mt-5" onClick={handleSubmit}>
+          <Button className="mt-5 mb-3" onClick={handleSubmit}>
             Guardar Los Cambios
           </Button>
         </Col>
       </Row>
       <Row>
-        <Col>
-          {showGradesPosted && (
-            <Alert variant={postedMessageVariant}>{gradesPostedMessage}</Alert>
-          )}
-          {showGradesUpdated && (
-            <Alert variant={UpdatedMessageVariant}>
-              {gradesUpdatedMessage}
-            </Alert>
-          )}
+        <Col className="d-flex justify-content-center">
+          <CenterResponsive>
+            {showGradesPosted && (
+              <Alert variant={postedMessageVariant}>
+                {gradesPostedMessage}
+              </Alert>
+            )}
+            {showGradesUpdated && (
+              <Alert variant={UpdatedMessageVariant}>
+                {gradesUpdatedMessage}
+              </Alert>
+            )}
+          </CenterResponsive>
         </Col>
       </Row>
       {renderGradesTables(props.grades)}

@@ -1,0 +1,30 @@
+.table {
+  width: 60%;
+}
+@media (max-width: 900px) {
+  .table {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .table {
+    width: 100%;
+    margin: 0 2rem;
+  }
+}
+.alert {
+  width: 60%;
+}
+@media (max-width: 900px) {
+  .alert {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .alert {
+    width: 100%;
+    margin: 0 2rem;
+  }
+}

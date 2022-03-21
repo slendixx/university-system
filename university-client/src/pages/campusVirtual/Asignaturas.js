@@ -32,7 +32,7 @@ const Asignaturas = () => {
     <Fragment>
       <NavbarCampusVirtual />
       <Row>{userCareer !== "" && <Subtitle>{userCareer}</Subtitle>}</Row>
-      <Row>
+      <Row style={{ maxWidth: "1400px" }}>
         <CourseDashboard
           courses={courses}
           linkTo="/campus-virtual/asignaturas/:courseId/actividades"
