@@ -34,7 +34,7 @@ const OfertaAcademica = () => {
       <Row>
         <Subtitle>Economía y Administración</Subtitle>
       </Row>
-      <Row style={{ maxWidth: "1400px" }}>
+      <Row>
         <CareerDashboard
           careers={careers.filter((career) => {
             return career.facultad === "economía y administración";
@@ -45,7 +45,7 @@ const OfertaAcademica = () => {
       <Row>
         <Subtitle>Ciencias Jurídicas, Políticas y Sociales</Subtitle>
       </Row>
-      <Row style={{ maxWidth: "1400px" }}>
+      <Row>
         <CareerDashboard
           careers={careers.filter((career) => {
             return (
@@ -58,7 +58,7 @@ const OfertaAcademica = () => {
       <Row>
         <Subtitle>Ciencias de la Salud</Subtitle>
       </Row>
-      <Row style={{ maxWidth: "1400px" }}>
+      <Row>
         <CareerDashboard
           careers={careers.filter((career) => {
             return career.facultad === "ciencias de la salud";
@@ -69,7 +69,7 @@ const OfertaAcademica = () => {
       <Row>
         <Subtitle>Ingeniería</Subtitle>
       </Row>
-      <Row style={{ maxWidth: "1400px" }}>
+      <Row>
         <CareerDashboard
           careers={careers.filter((career) => {
             return career.facultad === "ingeniería";
@@ -80,7 +80,7 @@ const OfertaAcademica = () => {
       <Row>
         <Subtitle>Humanidades</Subtitle>
       </Row>
-      <Row style={{ maxWidth: "1400px" }}>
+      <Row>
         <CareerDashboard
           careers={careers.filter((career) => {
             return career.facultad === "humanidades";

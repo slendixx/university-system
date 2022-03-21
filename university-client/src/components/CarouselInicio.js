@@ -2,7 +2,7 @@ import Carousel from "react-bootstrap/Carousel";
 import styles from "./carouselInicio.module.css";
 const CarouselInicio = () => {
   return (
-    <Carousel style={{ maxWidth: "1400px" }}>
+    <Carousel>
       <Carousel.Item>
         <img
           className={`d-block w-100 ${styles.image}`}
