@@ -1,5 +1,4 @@
 import { Fragment, useState, useEffect } from "react";
-import fetchFromApi from "../utils/fetchFromApi";
 import styles from "./detallesCarrera.module.css";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -11,6 +10,8 @@ import Button from "react-bootstrap/Button";
 import Subtitle from "../components/Subtitle";
 import CoursesAccordion from "../components/CoursesAccordion";
 import Description from "../components/Description";
+import axios from "axios";
+import apiHost from "../utils/apiHost";
 
 const DetallesCarrera = () => {
   const location = useLocation(); //We use this hook to pass props through React Router's Link element
@@ -18,25 +19,24 @@ const DetallesCarrera = () => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    const getCourses = async (id) => {
-      let coursesData;
-      try {
-        coursesData = await fetchFromApi({
-          apiResource: `careers/${id}/courses`,
-          method: "GET",
+    axios
+      .get(
+        apiHost + "careers/:careerId/courses".replace(":careerId", career.id)
+      )
+      .then((response) => {
+        const coursesData = response.data.data.results[0].courses;
+        setCourses((oldState) => {
+          return [...oldState, ...coursesData];
         });
-      } catch (error) {
-        console.error(error);
-        return;
-      }
-
-      setCourses((courses) => {
-        return [...courses, ...coursesData.results[0].courses];
+      })
+      .catch((error) => {
+        console.log(error.response);
       });
-    };
+  }, [career.id]);
 
-    getCourses(career.id);
-  }, [career]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   return (
     <Fragment>

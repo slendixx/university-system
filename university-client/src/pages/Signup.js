@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./signup.module.css";
 import Form from "react-bootstrap/Form";
 import Subtitle from "../components/Subtitle";
@@ -19,25 +19,37 @@ const Signup = (props) => {
   const [validationErrorMessage, setValidationErrorMessage] = useState("");
   const [signupError, setSignupError] = useState(false);
   const [signupErrorMessage, setSignupErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
+    //initialize a useEffect cleanup function that prevents the warning "can't perform React state update on an unmounted component"
+    const abortController = new AbortController();
+    //initialize a signal for axios to notify of any async requests in case they need to be aborted
+    const signal = abortController.signal;
+
     if (!formSubmitted) return;
     axios
-      .post(apiHost + "auth/signup", newUserData)
-      .then((response) => {
-        console.log(response.data.data.status);
+      .post(apiHost + "auth/signup", newUserData, {
+        signal,
+      })
+      .then((_) => {
+        navigate("/campus-virtual", {
+          state: { signupSucessMessage: "La cuenta se creó correctamente." },
+        });
         setSignupError(false);
       })
       .catch((error) => {
         if (
           error.response.data.message ===
-          "The specified email is already in use."
+          "the specified email is already in use"
         )
           setSignupErrorMessage("El Email especificado ya está en uso");
         //TODO implement better error messages on API
         setSignupError(true);
       });
-  }, [newUserData, formSubmitted]);
+
+    return () => abortController.abort();
+  }, [newUserData, formSubmitted, navigate]);
 
   const validateInput = (inputData) => {
     if (inputData.firstName.length === 0)

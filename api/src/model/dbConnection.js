@@ -1,5 +1,4 @@
 const mysql = require('mysql');
-const parseCredentials = require('../utils/parseCredentials');
 
 var connection;
 /*
@@ -56,12 +55,11 @@ function initializeConnection(config) {
 }
 
 module.exports.initConnection = () => {
-    const [username, password] = parseCredentials('./credentials.txt');
     connection = initializeConnection({
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
-        user: username,
-        password: password,
+        user: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
         database: process.env.DB_DBNAME,
         insecureAuth: process.env.DB_INSECURE_AUTH,
         multipleStatements: true,

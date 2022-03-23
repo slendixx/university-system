@@ -1,14 +1,13 @@
 //require db, env variables & app modules
 const dotenv = require('dotenv');
+//read env variables
+dotenv.config({ path: './config.env' });
 const errorController = require('./src/errors/errorController');
 const app = require('./src/app');
 const db = require('./src/model/dbConnection');
 
 //start listening for synchronous exceptions
 process.on('uncaughtException', errorController.handleUncaughtException);
-
-//read env variables
-dotenv.config({ path: './config.env' });
 
 //connect to db
 db.initConnection();

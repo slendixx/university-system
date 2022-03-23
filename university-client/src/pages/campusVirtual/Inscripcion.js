@@ -132,8 +132,8 @@ const Inscripcion = () => {
   const renderSuscriptionTable = (coursesByLevel) => {
     return coursesByLevel.map((courses, index) => {
       return (
-        <Fragment>
-          <Row key={index}>
+        <Fragment key={index}>
+          <Row>
             <Col>
               <Subtitle>{NIVELES[index]}</Subtitle>
             </Col>

@@ -3,7 +3,6 @@ const { Strategy: LocalStrategy } = require('passport-local');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 const testPassword = require('bcrypt').compare;
 const user = require('../model/user');
-const parseJwtSecret = require('../utils/parseJwtSecret');
 
 passport.use(
     new LocalStrategy(
@@ -39,7 +38,7 @@ passport.use(
     new JwtStrategy(
         {
             //secretOrKey: parseJwtSecret(__dirname + '/../../jwt-secret.txt'),
-            secretOrKey: parseJwtSecret('jwt-secret.txt'),
+            secretOrKey: process.env.JWT_SECRET,
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         },
         async (payload, done) => {

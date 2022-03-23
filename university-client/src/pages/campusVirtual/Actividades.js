@@ -49,7 +49,7 @@ const Actividades = () => {
           </Col>
         </Row>
       }
-      <Row style={{ maxWidth: "1400px" }}>
+      <Row>
         <ActivityDashboard
           activities={activities}
           linkTo={pathname + "/:activityId"}
@@ -59,7 +59,7 @@ const Actividades = () => {
         />
       </Row>
       {state.userRole === "docente" && (
-        <Row style={{ maxWidth: "1400px" }}>
+        <Row>
           <Col className="d-flex justify-content-center">
             <Link
               to={"/campus-virtual/asignaturas/:courseId/actividades/crear-modificar".replace(

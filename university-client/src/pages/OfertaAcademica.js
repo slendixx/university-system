@@ -3,29 +3,24 @@ import Row from "react-bootstrap/Row";
 import Subtitle from "../components/Subtitle";
 import NavbarInicio from "../layout/NavbarInicio";
 import CareerDashboard from "../components/CareerDashboard";
-import fetchFromApi from "../utils/fetchFromApi";
+import axios from "axios";
+import apiHost from "../utils/apiHost";
 
 const OfertaAcademica = () => {
   const [careers, setCareers] = useState([]);
 
   useEffect(() => {
-    const getCareers = async () => {
-      let careerData;
-      try {
-        careerData = await fetchFromApi({
-          apiResource: "careers",
-          method: "GET",
+    axios
+      .get(apiHost + "careers")
+      .then((response) => {
+        const careersData = response.data.data.results;
+        setCareers((oldState) => {
+          return [...oldState, ...careersData];
         });
-      } catch (error) {
-        console.error(error);
-      }
-      //It isn't recommended to update state based on previous state (objects and arrays) directly. gotta do it like this
-      setCareers((careers) => {
-        return [...careers, ...careerData.results];
+      })
+      .catch((error) => {
+        console.log(error.response);
       });
-    };
-
-    getCareers();
   }, []);
 
   return (

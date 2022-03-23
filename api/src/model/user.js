@@ -106,7 +106,7 @@ module.exports.insert = async (data) => {
     const hashedPassword = await bcrypt.hash(userData.password, hashCost);
     userData.password = hashedPassword;
     const sql =
-        'INSERT INTO usuario (nombre,apellido,email,password,id_rol_usuario,fecha_nacimiento,fecha_creacion_cuenta,genero) VALUES (?,?,?,?,?,?,?,?);'; //TODO not setting the value of career on user creation
+        'INSERT INTO usuario (nombre,apellido,email,password,id_rol_usuario,fecha_nacimiento,fecha_creacion_cuenta,genero, id_carrera) VALUES (?,?,?,?,?,?,?,?,?);';
     const values = [
         userData.firstName,
         userData.lastName,
@@ -116,6 +116,7 @@ module.exports.insert = async (data) => {
         userData.birthDate,
         userData.creationDate,
         userData.gender,
+        userData.career,
     ];
 
     try {

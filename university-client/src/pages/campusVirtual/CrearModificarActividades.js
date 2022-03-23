@@ -128,8 +128,11 @@ const CrearModificarActividades = (props) => {
   };
   //TODO refactor all side effects like this. just put them onto a function
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+    //initialize a useEffect cleanup function that prevents the warning "can't perform React state update on an unmounted component"
+    const abortController = new AbortController();
+    //initialize a signal for axios to notify of any async requests in case they need to be aborted
+    const signal = abortController.signal;
+
     if (!formSubmitted) return;
     if (activityId === null)
       axios
@@ -138,7 +141,7 @@ const CrearModificarActividades = (props) => {
             Authorization: "Bearer " + localStorage.getItem("jwt"),
           },
         })
-        .then((response) => {
+        .then((_) => {
           navigate(-1);
         })
         .catch((error) => {
@@ -155,7 +158,7 @@ const CrearModificarActividades = (props) => {
             },
           }
         )
-        .then((response) => {
+        .then((_) => {
           navigate(-1);
         })
         .catch((error) => {
@@ -177,7 +180,7 @@ const CrearModificarActividades = (props) => {
           if (axios.isCancel()) console.log("sucessfully aborted");
         });
     }
-    return () => controller.abort();
+    return () => abortController.abort();
   }, [
     formSubmitted,
     courseId,

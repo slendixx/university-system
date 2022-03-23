@@ -6,45 +6,36 @@ import NavbarInicio from "../layout/NavbarInicio";
 import CarouselInicio from "../components/CarouselInicio";
 import CareerDashboard from "../components/CareerDashboard";
 import fetchFromApi from "../utils/fetchFromApi";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import apiHost from "../utils/apiHost";
 
 const Inicio = (props) => {
   const [topCareers, setTopCareers] = useState([]);
   const [remoteCareers, setRemoteCareers] = useState([]);
 
   useEffect(() => {
-    const getTopCareers = async () => {
-      let careers;
-      try {
-        careers = await fetchFromApi({
-          apiResource: "careers?filter=topCareers",
-          method: "GET",
+    axios
+      .get(apiHost + "careers?filter=topCareers")
+      .then((response) => {
+        const careersData = response.data.data.results;
+        setTopCareers((oldState) => {
+          return [...oldState, ...careersData];
         });
-      } catch (error) {
-        console.error(error);
-      }
-      //It isn't recommended to update state based on previous state (objects and arrays) directly. gotta do it like this
-      setTopCareers((topCareers) => {
-        return [...topCareers, ...careers.results];
+      })
+      .catch((error) => {
+        console.log(error.response);
       });
-    };
-    const getRemoteCareers = async () => {
-      let careers;
-      try {
-        careers = await fetchFromApi({
-          apiResource: "careers?filter=remote",
-          method: "GET",
+    axios
+      .get(apiHost + "careers?filter=remote")
+      .then((response) => {
+        const careersData = response.data.data.results;
+        setRemoteCareers((oldState) => {
+          return [...oldState, ...careersData];
         });
-      } catch (error) {
-        console.error(error);
-      }
-      setRemoteCareers((remoteCareers) => {
-        return [...remoteCareers, ...careers.results];
+      })
+      .catch((error) => {
+        console.log(error.response);
       });
-    };
-
-    getTopCareers();
-    getRemoteCareers();
   }, []);
 
   return (

@@ -1,14 +1,10 @@
 const jwt = require('jsonwebtoken');
 const AppError = require('../errors/appError');
 const catchAsync = require('../errors/catchAsync');
-const parseJwtSecret = require('../utils/parseJwtSecret');
 
 module.exports.signJwt = catchAsync(async (req, res, next) => {
     try {
-        const token = jwt.sign(
-            { id: req.user.id },
-            parseJwtSecret('jwt-secret.txt')
-        );
+        const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
         return res.status(200).json({
             ok: true,
             data: {

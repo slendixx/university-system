@@ -1,4 +1,5 @@
 const db = require('./dbConnection');
+const generateSQLFieldPlaceholders = require('../utils/generateSqlFieldPlaceholders');
 
 module.exports.select = async ({ userId, id }) => {
     //TODO implement a version for a specific id
@@ -171,19 +172,6 @@ const formatStudentGradesV2 = (input) => {
         });
         resolve(result);
     });
-};
-
-const generateSQLFieldPlaceholders = (list) => {
-    let result =
-        '(' +
-        list
-            .map(() => {
-                return '?,';
-            })
-            .join('') +
-        ')';
-    result = result.replace('?,)', '?)');
-    return result;
 };
 
 module.exports.insert = async ({ data: newGrades }) => {

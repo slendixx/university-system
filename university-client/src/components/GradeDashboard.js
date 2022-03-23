@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CenterResponsive from "../layout/CenterResponsive";
+import Alert from "react-bootstrap/Alert";
 
 const GradeDashboard = (props) => {
   const renderGradeTables = (gradesByCourse) => {
@@ -45,7 +46,15 @@ const GradeDashboard = (props) => {
       );
     });
   };
-  return renderGradeTables(props.grades);
+  return props.grades.length !== 0 ? (
+    renderGradeTables(props.grades)
+  ) : (
+    <Row className="my-5">
+      <Col className="d-flex justify-content-center">
+        <Alert variant="info">Aun no tienes calificaciones registradas.</Alert>
+      </Col>
+    </Row>
+  );
 };
 
 export default GradeDashboard;

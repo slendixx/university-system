@@ -1,13 +1,15 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Col from "react-bootstrap/col";
 import Row from "react-bootstrap/row";
 import Button from "react-bootstrap/Button";
 import NavbarInicio from "../../layout/NavbarInicio";
-import Subtitle from "../../components/Subtitle";
+import Alert from "react-bootstrap/Alert";
 import Banner from "../../components/Banner";
 
 const InicioCampusVirtual = () => {
+  const signupSucessMessage = useLocation().state?.signupSucessMessage;
+
   return (
     <Fragment>
       <NavbarInicio />
@@ -17,13 +19,21 @@ const InicioCampusVirtual = () => {
         }
         title={"Esteban's University Virtual Campus"}
       />
+      {signupSucessMessage !== undefined && (
+        <Row className="mt-3">
+          <Col className="d-flex justify-content-center">
+            <Alert variant="success">{signupSucessMessage}</Alert>
+          </Col>
+        </Row>
+      )}
+
       <Row>
         <Col className="d-flex justify-content-center">
           <Link
             to="/campus-virtual/asignaturas"
             state={{ redirectRoute: "/campus-virtual/asignaturas" }}
           >
-            <Button variant="primary" className="my-5 px-5 py-2">
+            <Button variant="primary" className="my-3 px-5 py-2">
               Ingresar
             </Button>
           </Link>

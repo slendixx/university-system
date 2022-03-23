@@ -1,5 +1,6 @@
 const db = require('./dbConnection');
 const activity = require('./activity');
+const generateSqlFieldPlaceholders = require('../utils/generateSqlFieldPlaceholders');
 
 module.exports.select = async ({
     id,
@@ -76,18 +77,50 @@ module.exports.insertUserCourse = async ({ id, courseId }) => {
     return result;
 };
 
-module.exports.deleteUserCourse = async ({ id, courseId }) => {
+module.exports.deleteUserCourse = async ({ id: userId, courseId }) => {
     const sql =
         'DELETE FROM asignatura_usuario WHERE id_usuario = ? AND id_asignatura = ?;';
     const connection = db.getConnection();
     const result = {};
+
     try {
-        result.rows = await db.queryAsync(connection, sql, [id, courseId]);
+        result.rows = await db.queryAsync(connection, sql, [userId, courseId]);
+    } catch (error) {
+        result.message = error;
+        result.ok = false;
+    }
+
+    //Delete all matching grades for the user on the activities of the unsubscribed course
+
+    const unsubActivityIdsSql =
+        'SELECT id FROM actividad WHERE id_asignatura = ?;';
+    let unsubActivityIds = [];
+    try {
+        unsubActivityIds = await db.queryAsync(
+            connection,
+            unsubActivityIdsSql,
+            courseId
+        );
         result.ok = true;
     } catch (error) {
         result.message = error;
         result.ok = false;
     }
 
+    if (unsubActivityIds.length === 0) return result;
+    //TODO finish the grade deletion on course unsubscription
+    let unsubFromActivitiesSql =
+        'DELETE FROM calificacion_alumno WHERE id_alumno = ? AND id_actividad IN ';
+    unsubFromActivitiesSql += generateSqlFieldPlaceholders(unsubActivityIds);
+
+    try {
+        await db.queryAsync(connection, unsubFromActivitiesSql, [
+            userId,
+            ...unsubActivityIds,
+        ]);
+    } catch (error) {
+        result.message = error;
+        result.ok = false;
+    }
     return result;
 };

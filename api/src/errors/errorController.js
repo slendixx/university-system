@@ -32,6 +32,13 @@ const sendErrorDev = (error, res) => {
     });
 };
 
+const handleDuplicateField = (error) => {
+    if (error?.message.includes('usuario.email')) {
+        error.message = 'the specified email is already in use';
+    }
+    return error;
+};
+
 const sendErrorProd = (error, res) => {
     if (error.isOperational) {
         return res.status(error.statusCode).json({
@@ -55,7 +62,11 @@ module.exports.globalErrorHandler = (error, req, res, next) => {
     error.status = error.status || 'error';
 
     if (process.env.NODE_ENV === 'dev') return sendErrorDev(error, res);
-    if (error.message.includes('ER_DUP_ENTRY')) error.isOperational = true;
+    if (error.message.includes('ER_DUP_ENTRY')) {
+        error.isOperational = true;
+        handleDuplicateField(error);
+        //error.isOperational = true;
+    }
     return sendErrorProd(error, res);
 };
 
