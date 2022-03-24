@@ -85,11 +85,12 @@ module.exports.deleteUserCourse = async ({ id: userId, courseId }) => {
 
     try {
         result.rows = await db.queryAsync(connection, sql, [userId, courseId]);
+        result.ok = true;
     } catch (error) {
         result.message = error;
         result.ok = false;
     }
-
+    /*
     //Delete all matching grades for the user on the activities of the unsubscribed course
 
     const unsubActivityIdsSql =
@@ -122,5 +123,6 @@ module.exports.deleteUserCourse = async ({ id: userId, courseId }) => {
         result.message = error;
         result.ok = false;
     }
+    */
     return result;
 };

@@ -42,9 +42,13 @@ const Signup = (props) => {
         if (
           error.response.data.message ===
           "the specified email is already in use"
-        )
+        ) {
           setSignupErrorMessage("El Email especificado ya está en uso");
-        //TODO implement better error messages on API
+        } else {
+          setSignupErrorMessage(
+            "Ocurrió un error durante la creación de la cuenta"
+          );
+        }
         setSignupError(true);
       });
 
